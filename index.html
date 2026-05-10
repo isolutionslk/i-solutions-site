@@ -1,1 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i Solutions — Retail Technology & POS System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --white:#ffffff; --off:#faf9f7; --light:#f3f0eb; --light2:#ede9e2;
+  --gold:#b8912a; --gold2:#d4a843; --gold3:#e8c56a; --gold-soft:rgba(184,145,42,0.1); --gold-border:rgba(184,145,42,0.22);
+  --navy:#0f2744; --navy2:#1a3a5c; --sky:#e8f2ff; --teal:#0891b2; --teal-soft:rgba(8,145,178,0.1);
+  --slate:#4a5568; --mid:#718096; --shadow:rgba(15,39,68,0.07); --shadow2:rgba(15,39,68,0.15);
+  --fd:'Cormorant Garamond',serif; --fb:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--white);color:var(--navy);overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--light);}::-webkit-scrollbar-thumb{background:var(--gold-border);border-radius:3px;}
+
+/* ─ PAGE SYSTEM ─ */
+.page{display:none;animation:pageFade .45s ease;}
+.page.active{display:block;}
+@keyframes pageFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ─ NAV ─ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--gold-border);box-shadow:0 2px 20px var(--shadow);}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:62px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
+.logo-box{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(184,145,42,0.35),inset 0 1px 0 rgba(255,255,255,0.25);animation:logoSpin 7s ease-in-out infinite;}
+@keyframes logoSpin{0%,100%{transform:rotateY(0) rotateX(0)}30%{transform:rotateY(18deg) rotateX(5deg)}70%{transform:rotateY(-12deg) rotateX(-3deg)}}
+.logo-i{font-family:var(--fd);font-style:italic;font-size:26px;font-weight:700;color:white;line-height:1;}
+.logo-name{font-weight:700;font-size:17px;color:var(--navy);display:block;letter-spacing:-.3px;}
+.logo-sub{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links li a,.nav-links li button{color:var(--slate);text-decoration:none;font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .2s;background:none;border:none;cursor:pointer;font-family:var(--fb);}
+.nav-links li a:hover,.nav-links li button:hover,.nav-links li a.active,.nav-links li button.active{color:var(--gold);background:var(--gold-soft);}
+.nav-btn{background:linear-gradient(135deg,var(--gold2),var(--gold))!important;color:white!important;padding:10px 24px!important;border-radius:9px!important;font-weight:700!important;box-shadow:0 4px 16px rgba(184,145,42,0.3)!important;transition:all .2s!important;}
+.nav-btn:hover{transform:translateY(-1px)!important;box-shadow:0 7px 22px rgba(184,145,42,0.42)!important;background:linear-gradient(135deg,var(--gold3),var(--gold2))!important;}
+
+/* ─ SHARED COMPONENTS ─ */
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px;}
+.section{padding:96px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.stitle{font-family:var(--fd);font-size:50px;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:16px;}
+.ssub{font-size:17px;color:var(--slate);line-height:1.8;max-width:580px;}
+.rule{width:56px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold3),transparent);margin:20px 0 50px;border-radius:2px;}
+.btn-primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:white;padding:14px 30px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 22px rgba(184,145,42,0.28);transition:all .25s;border:none;cursor:pointer;font-family:var(--fb);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(184,145,42,0.38);}
+.btn-outline{border:2px solid var(--gold-border);color:var(--navy);padding:14px 30px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;background:white;cursor:pointer;font-family:var(--fb);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-soft);}
+.fade{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.fade.in{opacity:1;transform:none;}
+
+/* ══════════════════════════════
+   HOME PAGE
+══════════════════════════════ */
+.hero{min-height:100vh;background:linear-gradient(155deg,var(--white) 0%,var(--sky) 35%,var(--light) 65%,var(--off) 100%);display:flex;align-items:center;padding:100px 0 80px;position:relative;overflow:hidden;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.orb1{width:550px;height:550px;background:radial-gradient(circle,rgba(184,145,42,.16) 0%,transparent 70%);top:-120px;right:-80px;animation:orbF 9s ease-in-out infinite;}
+.orb2{width:380px;height:380px;background:radial-gradient(circle,rgba(8,145,178,.11) 0%,transparent 70%);bottom:-40px;left:-60px;animation:orbF 11s ease-in-out infinite reverse;}
+.orb3{width:220px;height:220px;background:radial-gradient(circle,rgba(184,145,42,.09) 0%,transparent 70%);top:45%;left:38%;animation:orbF 7s ease-in-out infinite 2s;}
+@keyframes orbF{0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,145,42,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(184,145,42,.055) 1px,transparent 1px);background-size:68px 68px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);}
+.hero-inner{max-width:1320px;margin:0 auto;padding:0 40px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-soft);border:1px solid var(--gold-border);padding:8px 18px;border-radius:40px;font-size:11.5px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:26px;}
+.hero h1{font-family:var(--fd);font-size:64px;font-weight:700;line-height:1.05;color:var(--navy);margin-bottom:22px;letter-spacing:-.5px;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-desc{font-size:17.5px;color:var(--slate);line-height:1.8;max-width:490px;margin-bottom:38px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:34px;margin-top:48px;padding-top:34px;border-top:1px solid var(--gold-border);}
+.stat-n{font-family:var(--fd);font-size:34px;font-weight:700;color:var(--gold);display:block;line-height:1;}
+.stat-l{font-size:11.5px;color:var(--mid);font-weight:500;margin-top:4px;}
+
+/* DASHBOARD MOCKUP */
+.dash-scene{perspective:1100px;}
+.dash-wrapper{transform:rotateY(-8deg) rotateX(4deg);transform-style:preserve-3d;transition:transform .5s ease;position:relative;}
+.dash-wrapper:hover{transform:rotateY(0) rotateX(0);}
+.dash-card{background:white;border-radius:22px;border:1px solid rgba(184,145,42,.14);box-shadow:0 28px 64px var(--shadow2),0 8px 20px var(--shadow),inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden;position:relative;}
+.dash-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--teal),var(--gold3));}
+.dash-hbar{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:15px 22px;display:flex;align-items:center;justify-content:space-between;}
+.dash-hbar .dt{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;}
+.lpill{display:flex;align-items:center;gap:5px;background:rgba(74,222,128,.13);border:1px solid rgba(74,222,128,.28);padding:4px 10px;border-radius:20px;font-size:10.5px;color:#4ade80;font-weight:600;}
+.ldot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.dash-body{padding:18px;}
+.kpi-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.kpi-b{background:var(--off);border-radius:12px;padding:13px;border:1px solid var(--light2);}
+.kl{font-size:9.5px;color:var(--mid);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+.kv{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--navy);}
+.kd{font-size:10px;margin-top:2px;}.up{color:#22c55e;}.dn{color:#ef4444;}
+.br{margin-bottom:9px;}
+.bt{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mid);margin-bottom:4px;}
+.btr{height:6px;background:var(--light2);border-radius:10px;overflow:hidden;}
+.bf{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.bf.bl{background:linear-gradient(90deg,var(--teal),#38bdf8);}
+.dtags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;padding-top:12px;border-top:1px solid var(--light2);}
+.dtag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:5px;}
+.dtag.am{background:#fef3c7;color:#92400e;}.dtag.gr{background:#dcfce7;color:#166534;}.dtag.rd{background:#fee2e2;color:#991b1b;}
+.fchip{position:absolute;background:white;border-radius:11px;padding:9px 13px;box-shadow:0 8px 24px var(--shadow2);border:1px solid var(--gold-border);font-size:11.5px;display:flex;align-items:center;gap:8px;white-space:nowrap;animation:chipF 4s ease-in-out infinite;}
+@keyframes chipF{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.chip1{top:-18px;right:18px;}
+.chip2{bottom:28px;left:-28px;animation-delay:1.5s;}
+.chi{width:26px;height:26px;border-radius:7px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:12px;}
+
+/* ─ MODULE CARDS (HOME) ─ */
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.mod-card{background:white;border-radius:20px;border:1px solid var(--light2);padding:30px;box-shadow:0 4px 16px var(--shadow);transition:all .35s cubic-bezier(.23,1,.32,1);cursor:pointer;position:relative;overflow:hidden;}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.mod-card:hover{transform:translateY(-6px) rotateX(2deg);box-shadow:0 20px 48px var(--shadow2);border-color:var(--gold-border);}
+.mod-card:hover::before{transform:scaleX(1);}
+.mod-icon{width:50px;height:50px;border-radius:13px;background:linear-gradient(135deg,var(--gold-soft),rgba(184,145,42,.05));border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--gold);margin-bottom:18px;box-shadow:0 4px 12px rgba(184,145,42,.13);}
+.mod-card h3{font-size:15.5px;font-weight:700;color:var(--navy);margin-bottom:9px;}
+.mod-card p{font-size:13px;color:var(--slate);line-height:1.68;}
+.mod-tag{display:inline-block;margin-top:14px;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--teal);background:var(--teal-soft);padding:4px 10px;border-radius:5px;text-transform:uppercase;}
+.mod-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12px;color:var(--gold);font-weight:600;}
+.mod-more i{font-size:10px;transition:transform .2s;}
+.mod-card:hover .mod-more i{transform:translateX(4px);}
+
+/* ─ WHY (HOME) ─ */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.why-card{background:white;border-radius:20px;border:1px solid var(--light2);padding:36px 28px;box-shadow:0 4px 18px var(--shadow);transition:all .35s cubic-bezier(.23,1,.32,1);position:relative;overflow:hidden;}
+.why-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-soft),transparent 60%);opacity:0;transition:opacity .35s;}
+.why-card:hover{transform:translateY(-5px) rotateX(1deg);box-shadow:0 20px 50px var(--shadow2);border-color:var(--gold-border);}
+.why-card:hover::after{opacity:1;}
+.wi{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:22px;color:white;margin-bottom:18px;box-shadow:0 6px 18px rgba(184,145,42,.28);position:relative;z-index:1;}
+.why-card h3{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:9px;position:relative;z-index:1;}
+.why-card p{font-size:13.5px;color:var(--slate);line-height:1.75;position:relative;z-index:1;}
+
+/* ─ STEPS (HOME) ─ */
+.steps-row{display:flex;gap:0;position:relative;}
+.steps-row::before{content:'';position:absolute;top:35px;left:36px;right:36px;height:2px;background:linear-gradient(90deg,transparent,var(--gold-border),var(--gold),var(--gold-border),transparent);}
+.step{flex:1;padding:0 10px;text-align:center;}
+.sc{width:70px;height:70px;border-radius:50%;margin:0 auto 18px;background:white;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;box-shadow:0 4px 16px rgba(184,145,42,.18),0 8px 20px var(--shadow);font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold);transition:all .3s;}
+.step:hover .sc{background:var(--gold);color:white;transform:translateY(-4px);box-shadow:0 10px 28px rgba(184,145,42,.32);}
+.step h4{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.step p{font-size:12px;color:var(--mid);line-height:1.6;}
+
+/* ─ CTA ─ */
+.cta-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#0f3460 100%);padding:96px 0;text-align:center;position:relative;overflow:hidden;}
+.cta-o1{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(184,145,42,.14),transparent 70%);top:-100px;right:-50px;filter:blur(50px);}
+.cta-o2{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(8,145,178,.14),transparent 70%);bottom:-60px;left:0;filter:blur(50px);}
+.cta-inner{position:relative;z-index:2;}
+.cta-section h2{font-family:var(--fd);font-size:50px;font-weight:700;color:white;margin-bottom:14px;}
+.cta-section h2 em{font-style:italic;color:var(--gold3);}
+.cta-sub{font-size:17.5px;color:rgba(255,255,255,.68);margin-bottom:48px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.78;}
+.c-cards{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+.c-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:17px 24px;display:flex;align-items:center;gap:13px;text-decoration:none;color:white;transition:all .2s;backdrop-filter:blur(10px);}
+.c-card:hover{background:rgba(255,255,255,.13);border-color:var(--gold);transform:translateY(-2px);}
+.c-card i{font-size:20px;color:var(--gold3);}
+.c-card.wa i{color:#4ade80;}
+.ccl{font-weight:700;color:white;display:block;font-size:14px;}
+.ccs{font-size:12px;color:rgba(255,255,255,.58);}
+.trust-row{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:40px;}
+.tchip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:8px;padding:9px 16px;font-size:12.5px;color:rgba(255,255,255,.82);display:flex;align-items:center;gap:7px;}
+.tchip i{color:var(--gold3);}
+
+/* ─ FOOTER ─ */
+footer{background:var(--off);border-top:1px solid var(--gold-border);padding:42px 40px;text-align:center;}
+footer p{font-size:13px;color:var(--mid);line-height:1.85;}
+footer a{color:var(--gold);text-decoration:none;}
+
+/* ══════════════════════════════
+   MODULES PAGE
+══════════════════════════════ */
+.page-hero{padding:100px 0 64px;background:linear-gradient(155deg,var(--white) 0%,var(--sky) 45%,var(--light) 100%);position:relative;overflow:hidden;}
+.page-hero .orb-sm{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
+.page-hero .orb-sm.a{width:350px;height:350px;background:radial-gradient(circle,rgba(184,145,42,.14),transparent 70%);top:-80px;right:-60px;animation:orbF 8s ease-in-out infinite;}
+.page-hero .orb-sm.b{width:250px;height:250px;background:radial-gradient(circle,rgba(8,145,178,.1),transparent 70%);bottom:-40px;left:-30px;animation:orbF 10s ease-in-out infinite reverse;}
+.page-hero-inner{position:relative;z-index:2;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid);margin-bottom:20px;}
+.breadcrumb a{color:var(--gold);text-decoration:none;cursor:pointer;}
+.breadcrumb span{color:var(--light2);}
+
+.mod-detail-grid{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start;}
+.mod-sidebar{position:sticky;top:90px;}
+.mod-sidebar-list{background:white;border-radius:18px;border:1px solid var(--light2);overflow:hidden;box-shadow:0 4px 18px var(--shadow);}
+.mod-sidebar-list h4{padding:18px 20px 14px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--light2);}
+.mod-sidebar-list button{width:100%;text-align:left;padding:13px 20px;border:none;background:none;cursor:pointer;font-family:var(--fb);font-size:13.5px;color:var(--slate);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--light);}
+.mod-sidebar-list button:last-child{border-bottom:none;}
+.mod-sidebar-list button:hover,.mod-sidebar-list button.active{background:var(--gold-soft);color:var(--gold);font-weight:600;}
+.mod-sidebar-list button.active{border-left:3px solid var(--gold);}
+.mod-sidebar-list button i{font-size:14px;width:18px;text-align:center;}
+
+.mod-detail-content{min-height:600px;}
+.mod-detail-panel{display:none;animation:pageFade .4s ease;}
+.mod-detail-panel.active{display:block;}
+
+.mod-detail-header{background:white;border-radius:22px;border:1px solid var(--gold-border);padding:40px;margin-bottom:24px;box-shadow:0 6px 24px var(--shadow);position:relative;overflow:hidden;}
+.mod-detail-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent);}
+.mod-header-icon{width:68px;height:68px;border-radius:18px;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:28px;color:white;margin-bottom:20px;box-shadow:0 8px 24px rgba(184,145,42,.3);}
+.mod-detail-header h2{font-family:var(--fd);font-size:36px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.mod-detail-header .desc{font-size:16px;color:var(--slate);line-height:1.8;max-width:680px;}
+.mod-who{display:inline-flex;align-items:center;gap:6px;background:var(--teal-soft);border:1px solid rgba(8,145,178,.2);padding:6px 14px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--teal);letter-spacing:.5px;text-transform:uppercase;margin-top:16px;}
+
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;}
+.feat-card{background:white;border-radius:16px;border:1px solid var(--light2);padding:26px;box-shadow:0 3px 12px var(--shadow);transition:all .3s;}
+.feat-card:hover{border-color:var(--gold-border);transform:translateY(-3px);box-shadow:0 10px 28px var(--shadow2);}
+.feat-card-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-soft);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--gold);margin-bottom:14px;}
+.feat-card h4{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.feat-card p{font-size:13px;color:var(--slate);line-height:1.68;}
+
+.how-steps{background:white;border-radius:18px;border:1px solid var(--light2);padding:32px;box-shadow:0 4px 16px var(--shadow);margin-bottom:24px;}
+.how-steps h3{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--navy);margin-bottom:22px;}
+.how-step{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--light);}
+.how-step:last-child{border-bottom:none;}
+.hs-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;flex-shrink:0;box-shadow:0 4px 12px rgba(184,145,42,.25);}
+.hs-body h5{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.hs-body p{font-size:13px;color:var(--slate);line-height:1.65;}
+
+.tech-box{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:18px;padding:28px;color:white;margin-bottom:24px;}
+.tech-box h3{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold3);margin-bottom:16px;}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tech-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;}
+.tech-item dt{font-size:11px;font-weight:600;color:var(--gold3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.tech-item dd{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+
+.benefits-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
+.benefit-pill{background:var(--gold-soft);border:1px solid var(--gold-border);border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--navy);}
+.benefit-pill i{color:var(--gold);}
+
+/* ══════════════════════════════
+   WORKFLOW PAGE
+══════════════════════════════ */
+.workflow-timeline{position:relative;padding-left:48px;}
+.workflow-timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),var(--gold2),var(--teal),var(--gold3));}
+.wf-step{position:relative;margin-bottom:48px;}
+.wf-dot{position:absolute;left:-38px;top:4px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:14px;box-shadow:0 4px 14px rgba(184,145,42,.3);font-family:var(--fd);}
+.wf-card{background:white;border-radius:18px;border:1px solid var(--light2);padding:28px 32px;box-shadow:0 4px 16px var(--shadow);transition:all .3s;}
+.wf-card:hover{border-color:var(--gold-border);box-shadow:0 12px 32px var(--shadow2);}
+.wf-card h3{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.wf-card .wdesc{font-size:14.5px;color:var(--slate);line-height:1.75;margin-bottom:16px;}
+.wf-detail-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.wf-detail-list li{font-size:13px;color:var(--slate);list-style:none;display:flex;align-items:flex-start;gap:7px;}
+.wf-detail-list li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* ══════════════════════════════
+   ROLES PAGE
+══════════════════════════════ */
+.roles-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;}
+.role-tab{padding:11px 22px;border-radius:10px;border:1.5px solid var(--light2);background:white;cursor:pointer;font-family:var(--fb);font-size:14px;font-weight:600;color:var(--slate);transition:all .2s;display:flex;align-items:center;gap:8px;}
+.role-tab:hover{border-color:var(--gold-border);color:var(--gold);}
+.role-tab.active{background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:transparent;color:white;box-shadow:0 4px 14px rgba(184,145,42,.3);}
+.role-panel{display:none;animation:pageFade .4s ease;}
+.role-panel.active{display:grid;grid-template-columns:340px 1fr;gap:36px;}
+.role-profile{background:white;border-radius:22px;border:1px solid var(--gold-border);padding:36px;box-shadow:0 6px 22px var(--shadow);text-align:center;height:fit-content;}
+.role-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:34px;color:white;margin:0 auto 18px;box-shadow:0 8px 24px rgba(184,145,42,.3);}
+.role-profile h2{font-family:var(--fd);font-size:28px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.role-profile p{font-size:14px;color:var(--slate);line-height:1.7;}
+.role-profile .access-level{display:inline-flex;align-items:center;gap:6px;background:var(--teal-soft);border:1px solid rgba(8,145,178,.2);padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.5px;text-transform:uppercase;margin-top:14px;}
+.role-modules-list{margin-top:22px;text-align:left;}
+.role-modules-list h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.rmod{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--light);font-size:13.5px;color:var(--navy);font-weight:500;}
+.rmod:last-child{border-bottom:none;}
+.rmod i{color:var(--gold);font-size:13px;width:16px;text-align:center;}
+
+.role-tasks{display:flex;flex-direction:column;gap:18px;}
+.rtask{background:white;border-radius:16px;border:1px solid var(--light2);padding:24px;box-shadow:0 3px 12px var(--shadow);transition:all .3s;}
+.rtask:hover{border-color:var(--gold-border);transform:translateX(4px);box-shadow:0 8px 24px var(--shadow2);}
+.rtask-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.rtask-icon{width:42px;height:42px;border-radius:11px;background:var(--gold-soft);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--gold);}
+.rtask h4{font-size:15px;font-weight:700;color:var(--navy);}
+.rtask p{font-size:13.5px;color:var(--slate);line-height:1.7;}
+.rtask-tip{background:var(--off);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:12.5px;color:var(--mid);display:flex;gap:8px;}
+.rtask-tip i{color:var(--gold);flex-shrink:0;margin-top:2px;}
+
+/* ══════════════════════════════
+   WHY US PAGE
+══════════════════════════════ */
+.comparison-table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden;box-shadow:0 6px 22px var(--shadow);border:1px solid var(--light2);}
+.comparison-table th{background:linear-gradient(135deg,var(--navy),var(--navy2));color:white;padding:18px 22px;font-size:13px;font-weight:600;text-align:left;letter-spacing:.3px;}
+.comparison-table th:first-child{width:280px;}
+.comparison-table th.highlight{background:linear-gradient(135deg,var(--gold),var(--gold2));color:white;}
+.comparison-table td{padding:15px 22px;font-size:13.5px;border-bottom:1px solid var(--light);vertical-align:top;}
+.comparison-table tr:last-child td{border-bottom:none;}
+.comparison-table tr:hover td{background:var(--off);}
+.comparison-table td:nth-child(2){font-weight:600;color:var(--gold);}
+.tick{color:#22c55e;font-size:16px;} .cross{color:#ef4444;font-size:16px;} .part{color:#f59e0b;font-size:16px;}
+
+.testimony-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:50px;}
+.testimony{background:white;border-radius:18px;border:1px solid var(--light2);padding:28px;box-shadow:0 4px 16px var(--shadow);}
+.stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:14px;}
+.testimony p{font-size:14.5px;color:var(--slate);line-height:1.8;font-style:italic;margin-bottom:18px;}
+.testimony-author{display:flex;align-items:center;gap:12px;}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:15px;}
+.t-name{font-weight:700;font-size:14px;color:var(--navy);}
+.t-role{font-size:12px;color:var(--mid);}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE WEB DESIGN
+   Breakpoints:
+   • xl  > 1280px  — large desktops (default)
+   • lg  ≤ 1280px  — laptops / small desktops
+   • md  ≤ 1024px  — tablets landscape
+   • sm  ≤ 768px   — tablets portrait / large phones
+   • xs  ≤ 480px   — mobile phones
+════════════════════════════════════════════ */
+
+/* ── HAMBURGER (hidden on desktop) ── */
+.hamburger{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  width:44px;height:44px;
+  background:var(--gold-soft);
+  border:2px solid var(--gold);
+  border-radius:10px;cursor:pointer;padding:0;flex-shrink:0;
+}
+.hamburger span{display:block;width:20px;height:2.5px;background:var(--navy);border-radius:2px;transition:all .3s ease;}
+.hamburger.open{background:var(--gold);border-color:var(--gold);}
+.hamburger.open span{background:white;}
+.hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+.mobile-nav{
+  display:none;
+  position:fixed;top:62px;left:0;right:0;z-index:998;
+  background:white;border-bottom:2px solid var(--gold-border);
+  box-shadow:0 12px 32px rgba(15,39,68,.18);
+  padding:12px 16px 20px;flex-direction:column;gap:4px;
+  max-height:calc(100vh - 62px);overflow-y:auto;
+}
+.mobile-nav.open{display:flex;}
+.mobile-nav button,.mobile-nav a{
+  width:100%;text-align:left;padding:13px 16px;border-radius:10px;
+  border:none;background:none;cursor:pointer;font-family:var(--fb);
+  font-size:15px;color:var(--slate);font-weight:500;transition:all .2s;
+  text-decoration:none;display:flex;align-items:center;gap:12px;
+}
+.mobile-nav button:hover,.mobile-nav a:hover{background:var(--gold-soft);color:var(--gold);}
+.mobile-nav .mob-divider{height:1px;background:var(--light2);margin:6px 0;}
+.mobile-nav .mob-cta{
+  background:linear-gradient(135deg,var(--gold2),var(--gold))!important;
+  color:white!important;font-weight:700!important;
+  margin-top:4px;border-radius:10px;
+  justify-content:center;
+  box-shadow:0 4px 14px rgba(184,145,42,.3);
+}
+
+/* ── LARGE DESKTOP ≤ 1280px ── */
+@media(max-width:1280px){
+  .wrap,.nav-inner,.hero-inner{padding-left:28px;padding-right:28px;}
+  .hero h1{font-size:56px;}
+  .stitle{font-size:44px;}
+  .hero-inner{gap:56px;}
+}
+
+/* ── LAPTOP / SMALL DESKTOP ≤ 1024px ── */
+@media(max-width:1024px){
+  .nav-links{display:none !important;}
+  .hamburger{display:flex !important;}
+  .wrap,.nav-inner,.hero-inner{padding-left:24px;padding-right:24px;}
+  .hero h1{font-size:48px;}
+  .stitle{font-size:38px;}
+  .hero-inner{gap:40px;}
+  .mod-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .roles-grid{grid-template-columns:repeat(3,1fr);}
+  .features-grid{grid-template-columns:repeat(2,1fr);}
+  .tech-grid{grid-template-columns:1fr;}
+  .mod-detail-grid{grid-template-columns:240px 1fr;gap:24px;}
+  .comparison-table th:first-child{width:200px;}
+  .wf-detail-list{grid-template-columns:1fr;}
+  /* Workflow page side panel */
+  #page-workflow .wrap > div[style*="grid-template-columns:1fr 340px"]{
+    display:flex;flex-direction:column;gap:32px;
+  }
+  #page-workflow .wrap > div > div:last-child{position:static;}
+  /* Contact grid */
+  #page-contact .wrap > div > div[style*="grid-template-columns:1fr 1fr"]{
+    display:flex;flex-direction:column;gap:28px;
+  }
+}
+
+/* ── TABLET PORTRAIT ≤ 768px ── */
+@media(max-width:768px){
+  /* NAV — hide links, show hamburger */
+  .nav-links{display:none !important;}
+  .hamburger{display:flex !important;}
+  .nav-inner{height:62px;padding:0 16px;}
+
+  .wrap,.nav-inner,.hero-inner{padding-left:20px;padding-right:20px;}
+  .section{padding:64px 0;}
+  .page-hero{padding:120px 0 52px;}
+  footer{padding:32px 20px;}
+
+  /* HERO */
+  .hero{min-height:auto;padding:110px 0 60px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .hero h1{font-size:42px;}
+  .hero-desc{font-size:16px;max-width:100%;}
+  .hero-stats{gap:20px;flex-wrap:wrap;}
+  /* hide floating dashboard chips on tablet */
+  .fchip{display:none;}
+  /* flatten 3D effect on touch */
+  .dash-wrapper{transform:none!important;}
+
+  /* GRIDS → 2 col */
+  .mod-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .why-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .features-grid{grid-template-columns:1fr;gap:14px;}
+  .tech-grid{grid-template-columns:1fr;}
+  .roles-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+
+  /* STEPS — vertical */
+  .steps-row{flex-direction:column;gap:0;align-items:center;}
+  .steps-row::before{display:none;}
+  .step{display:flex;align-items:flex-start;gap:16px;text-align:left;width:100%;max-width:480px;padding:16px 0;border-bottom:1px solid var(--light2);}
+  .step:last-child{border-bottom:none;}
+  .sc{width:52px;height:52px;flex-shrink:0;margin:0;font-size:18px;}
+  .step h4{margin-bottom:4px;}
+
+  /* MODULES sidebar → horizontal scroll select */
+  .mod-detail-grid{grid-template-columns:1fr;gap:20px;}
+  .mod-sidebar{position:static;}
+  .mod-sidebar-list{overflow-x:auto;border-radius:12px;}
+  .mod-sidebar-list h4{display:none;}
+  .mod-sidebar-list .sb-scroll-wrap{display:flex;overflow-x:auto;padding:8px 12px;gap:6px;scrollbar-width:none;}
+  .mod-sidebar-list .sb-scroll-wrap::-webkit-scrollbar{display:none;}
+  .mod-sidebar-list button{width:auto;white-space:nowrap;padding:9px 14px;border-bottom:none;border-radius:8px;font-size:12.5px;flex-shrink:0;}
+
+  /* ROLES */
+  .roles-tabs{gap:8px;}
+  .role-tab{padding:9px 14px;font-size:13px;}
+  .role-panel.active{grid-template-columns:1fr;gap:20px;}
+
+  /* CTA */
+  .cta-section h2{font-size:36px;}
+  .cta-sub{font-size:15.5px;}
+
+  /* TYPOGRAPHY */
+  .stitle{font-size:34px;}
+  .ssub{font-size:15px;}
+
+  /* COMPARISON TABLE */
+  .comparison-table{font-size:12.5px;}
+  .comparison-table th,.comparison-table td{padding:12px 14px;}
+  .comparison-table th:first-child{width:auto;min-width:120px;}
+  /* hide 3rd column on tablet */
+  .comparison-table th:nth-child(4),.comparison-table td:nth-child(4){display:none;}
+
+  /* WORKFLOW page stacked */
+  .workflow-timeline{padding-left:32px;}
+  .wf-card h3{font-size:17px;}
+
+  /* CONTACT */
+  #page-contact .wrap > div > div[style*="grid-template-columns:1fr 1fr"]{
+    display:flex;flex-direction:column;gap:24px;
+  }
+}
+
+/* ── MOBILE PHONE ≤ 480px ── */
+@media(max-width:480px){
+  .nav-inner{height:62px;padding:0 16px;}
+  .logo-name{font-size:15px;}
+  .logo-sub{display:none;}
+
+  .wrap,.hero-inner{padding-left:16px;padding-right:16px;}
+  .section{padding:52px 0;}
+  .page-hero{padding:102px 0 44px;}
+  footer{padding:28px 16px;}
+
+  /* HERO */
+  .hero{padding:100px 0 52px;}
+  .hero h1{font-size:34px;letter-spacing:0;}
+  .hero-badge{font-size:10px;padding:6px 12px;}
+  .hero-desc{font-size:15px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .btn-primary,.btn-outline{width:100%;justify-content:center;padding:13px 20px;}
+  .hero-stats{gap:14px;}
+  .stat-n{font-size:26px;}
+
+  /* KPI grid on dashboard → stack */
+  .kpi-g{grid-template-columns:1fr;}
+
+  /* GRIDS → single column */
+  .mod-grid{grid-template-columns:1fr;gap:14px;}
+  .why-grid{grid-template-columns:1fr;gap:14px;}
+  .roles-grid{grid-template-columns:1fr;gap:12px;}
+  .features-grid{grid-template-columns:1fr;}
+
+  /* TYPOGRAPHY */
+  .stitle{font-size:28px;}
+  .ssub{font-size:14.5px;}
+  .section-eyebrow,.eyebrow{font-size:10px;}
+  .cta-section h2{font-size:28px;}
+  .cta-sub{font-size:14.5px;}
+
+  /* STEPS */
+  .step{flex-direction:column;align-items:center;text-align:center;padding:20px 0;}
+  .sc{margin-bottom:10px;}
+
+  /* MODULE sidebar scrollable pills */
+  .mod-sidebar-list button{font-size:11.5px;padding:8px 12px;}
+
+  /* ROLES TABS */
+  .roles-tabs{flex-direction:column;gap:6px;}
+  .role-tab{width:100%;justify-content:flex-start;padding:12px 16px;}
+
+  /* WHY cards */
+  .why-card{padding:24px 20px;}
+
+  /* WORKFLOW */
+  .workflow-timeline{padding-left:24px;}
+  .wf-dot{left:-28px;width:28px;height:28px;font-size:12px;}
+  .wf-card{padding:20px;}
+  .wf-card h3{font-size:16px;}
+  .wf-detail-list{grid-template-columns:1fr;}
+
+  /* COMPARISON TABLE */
+  .comparison-table{font-size:11.5px;}
+  .comparison-table th,.comparison-table td{padding:10px 10px;}
+  /* On mobile show only feature + i Solutions columns */
+  .comparison-table th:nth-child(3),.comparison-table td:nth-child(3){display:none;}
+  .comparison-table th:nth-child(4),.comparison-table td:nth-child(4){display:none;}
+
+  /* CONTACT page */
+  #page-contact .wrap > div > div{grid-template-columns:1fr!important;display:flex!important;flex-direction:column!important;}
+
+  /* CTA chips */
+  .trust-row{flex-direction:column;align-items:center;}
+  .tchip{width:100%;justify-content:center;}
+  .c-cards{flex-direction:column;align-items:stretch;}
+  .c-card{justify-content:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav" id="topnav">
+  <div class="nav-inner">
+    <div class="logo" onclick="showPage('home')">
+      <div class="logo-box"><span class="logo-i">i</span></div>
+      <div>
+        <span class="logo-name">i Solutions</span>
+        <span class="logo-sub">Point of Sale &amp; Retail Technology</span>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><button onclick="showPage('home')" id="nav-home" class="active">Home</button></li>
+      <li><button onclick="showPage('modules')" id="nav-modules">Modules</button></li>
+      <li><button onclick="showPage('workflow')" id="nav-workflow">How It Works</button></li>
+      <li><button onclick="showPage('roles')" id="nav-roles">Roles</button></li>
+      <li><button onclick="showPage('why')" id="nav-why">Why Us</button></li>
+      <li><button onclick="showPage('contact')" class="nav-btn" id="nav-contact">Get a Demo</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobileNav">
+  <button onclick="showPage('home');closeMobileNav()"><i class="fas fa-house" style="color:var(--gold);width:20px;text-align:center"></i> Home</button>
+  <button onclick="showPage('modules');closeMobileNav()"><i class="fas fa-th-large" style="color:var(--gold);width:20px;text-align:center"></i> Modules</button>
+  <button onclick="showPage('workflow');closeMobileNav()"><i class="fas fa-route" style="color:var(--gold);width:20px;text-align:center"></i> How It Works</button>
+  <button onclick="showPage('roles');closeMobileNav()"><i class="fas fa-users" style="color:var(--gold);width:20px;text-align:center"></i> Staff Roles</button>
+  <button onclick="showPage('why');closeMobileNav()"><i class="fas fa-star" style="color:var(--gold);width:20px;text-align:center"></i> Why Choose Us</button>
+  <div class="mob-divider"></div>
+  <button class="mob-cta" onclick="showPage('contact');closeMobileNav()"><i class="fas fa-paper-plane"></i>&nbsp; Get a Free Demo</button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="fade">
+        <div class="hero-badge"><i class="fas fa-star fa-xs"></i>&nbsp; Trusted Retail POS System · Saudi Arabia</div>
+        <h1>The Smart POS<br>for <em>Growing</em><br>Retail Stores</h1>
+        <p class="hero-desc">i Solutions gives your store a complete Point of Sale system — sell faster, track every product, manage staff, and see your profits live. Built for retail businesses in Saudi Arabia.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-paper-plane"></i> Get a Free Demo</button>
+          <button class="btn-outline" onclick="showPage('modules')"><i class="fas fa-th-large"></i> See All Features</button>
+        </div>
+        <div class="hero-stats">
+          <div><span class="stat-n">13+</span><span class="stat-l">Modules</span></div>
+          <div><span class="stat-n">Live</span><span class="stat-l">Dashboard</span></div>
+          <div><span class="stat-n">Full</span><span class="stat-l">Audit Trail</span></div>
+          <div><span class="stat-n">v4.3</span><span class="stat-l">Enterprise</span></div>
+        </div>
+      </div>
+      <div class="fade" style="transition-delay:.2s;position:relative;padding:30px 20px 30px 30px;">
+        <div class="fchip chip1"><div class="chi"><i class="fas fa-bolt"></i></div><span style="color:var(--navy);font-weight:600">Live sync · real-time data</span></div>
+        <div class="fchip chip2"><div class="chi"><i class="fas fa-shield-halved"></i></div><span style="color:var(--navy);font-weight:600">Role-based security</span></div>
+        <div class="dash-scene"><div class="dash-wrapper" id="dashWrap">
+          <div class="dash-card">
+            <div class="dash-hbar"><span class="dt">Executive Dashboard</span><span class="lpill"><span class="ldot"></span> Live</span></div>
+            <div class="dash-body">
+              <div class="kpi-g">
+                <div class="kpi-b"><div class="kl">Today's Earnings</div><div class="kv">SAR 8,420</div><div class="kd up">↑ +18% vs yesterday</div></div>
+                <div class="kpi-b"><div class="kl">Lifetime Revenue</div><div class="kv">SAR 1.24M</div><div class="kd up">Net of refunds</div></div>
+                <div class="kpi-b"><div class="kl">Avg. Transaction</div><div class="kv">SAR 96.30</div><div class="kd" style="color:var(--mid)">All payment types</div></div>
+                <div class="kpi-b"><div class="kl">Revenue Leakage</div><div class="kv">SAR 4,230</div><div class="kd dn">↓ Refund tracked</div></div>
+              </div>
+              <div class="br"><div class="bt"><span>Profit Efficiency</span><span style="color:var(--gold);font-weight:700">68.4%</span></div><div class="btr"><div class="bf" style="width:68%"></div></div></div>
+              <div class="br"><div class="bt"><span>Inventory Sell-Through</span><span style="color:var(--teal);font-weight:700">58%</span></div><div class="btr"><div class="bf bl" style="width:58%"></div></div></div>
+              <div class="br"><div class="bt"><span>Unrealized Profit</span><span style="color:var(--gold);font-weight:700">SAR 247k</span></div><div class="btr"><div class="bf" style="width:42%"></div></div></div>
+              <div class="dtags"><span class="dtag am">4 Active Promos</span><span class="dtag gr">12 Gift Cards</span><span class="dtag rd">3 Low Stock</span></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES OVERVIEW -->
+  <section class="section" style="background:var(--off)">
+    <div class="wrap">
+      <div class="eyebrow fade">Complete Module Suite</div>
+      <div class="stitle fade">13+ Modules, One System</div>
+      <div class="ssub fade">Click any module to explore its full capabilities, workflow, and technical detail.</div>
+      <div class="rule fade"></div>
+      <div class="mod-grid">
+        <div class="mod-card fade" onclick="openModule('dashboard')"><div class="mod-icon"><i class="fas fa-gauge-high"></i></div><h3>Executive Dashboard</h3><p>Live revenue, profit efficiency, inventory value, and refund leakage — all in one management screen.</p><span class="mod-tag">Management</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+        <div class="mod-card fade" style="transition-delay:.05s" onclick="openModule('pos')"><div class="mod-icon"><i class="fas fa-cash-register"></i></div><h3>Point of Sale Billing</h3><p>Scan or search products, apply discounts, accept multi-payment — receipt prints automatically.</p><span class="mod-tag">Cashiers</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+        <div class="mod-card fade" style="transition-delay:.1s" onclick="openModule('sales')"><div class="mod-icon"><i class="fas fa-file-invoice"></i></div><h3>Sales History & Reports</h3><p>Full transaction history, line-item profit analysis, Excel export, and tax reports — all in one hub.</p><span class="mod-tag">Accounts</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+        <div class="mod-card fade" style="transition-delay:.15s" onclick="openModule('inventory')"><div class="mod-icon"><i class="fas fa-boxes-stacked"></i></div><h3>Inventory & Stock Control</h3><p>Live on-hand quantities with colour-coded alerts and WAC cost tracking per product.</p><span class="mod-tag">Store Managers</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+        <div class="mod-card fade" style="transition-delay:.2s" onclick="openModule('po')"><div class="mod-icon"><i class="fas fa-truck-ramp-box"></i></div><h3>Purchase Orders</h3><p>Full PO lifecycle: Pending → Ordered → Received → Cancelled with auto inventory update.</p><span class="mod-tag">Purchasing</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+        <div class="mod-card fade" style="transition-delay:.25s" onclick="openModule('gifts')"><div class="mod-icon"><i class="fas fa-gift"></i></div><h3>Gift Cards & Promotions</h3><p>Issue unique gift cards and run time-limited discount campaigns linked to specific products.</p><span class="mod-tag">Marketing</span><div class="mod-more">Explore module <i class="fas fa-arrow-right"></i></div></div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <button class="btn-primary" onclick="showPage('modules')"><i class="fas fa-grid-2"></i> View All 13 Modules</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow fade">Transaction Workflow</div>
+      <div class="stitle fade">Sale to Receipt in Seconds</div>
+      <div class="rule fade"></div>
+      <div class="steps-row fade">
+        <div class="step"><div class="sc">1</div><h4>Login</h4><p>Secure role-based login</p></div>
+        <div class="step"><div class="sc">2</div><h4>Open POS</h4><p>Cart ready immediately</p></div>
+        <div class="step"><div class="sc">3</div><h4>Add Products</h4><p>Scan or search by name</p></div>
+        <div class="step"><div class="sc">4</div><h4>Discounts</h4><p>Item or basket level</p></div>
+        <div class="step"><div class="sc">5</div><h4>Payment</h4><p>Cash, Card, or Split</p></div>
+        <div class="step"><div class="sc">6</div><h4>Receipt</h4><p>Prints automatically</p></div>
+        <div class="step"><div class="sc">7</div><h4>Reports</h4><p>All data updates live</p></div>
+      </div>
+      <div style="text-align:center;margin-top:44px;">
+        <button class="btn-outline" onclick="showPage('workflow')"><i class="fas fa-route"></i> See Full Workflow Detail</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section" style="background:linear-gradient(160deg,var(--sky),var(--off) 60%,var(--white))">
+    <div class="wrap">
+      <div class="eyebrow fade">Why i Solutions</div>
+      <div class="stitle fade">The Complete Retail<br>Technology Partner</div>
+      <div class="rule fade"></div>
+      <div class="why-grid">
+        <div class="why-card fade"><div class="wi"><i class="fas fa-gauge-simple-high"></i></div><h3>Built for Speed</h3><p>Fastest daily workflow — sale to printed receipt in seconds, zero extra cashier steps.</p></div>
+        <div class="why-card fade" style="transition-delay:.07s"><div class="wi"><i class="fas fa-shield-halved"></i></div><h3>Secure by Design</h3><p>Role-based permissions on every module. Every action logged for complete audit accountability.</p></div>
+        <div class="why-card fade" style="transition-delay:.14s"><div class="wi"><i class="fas fa-circle-check"></i></div><h3>Data You Can Trust</h3><p>WAC costs frozen at each sale. Reports real-time. Every number permanently accurate.</p></div>
+        <div class="why-card fade" style="transition-delay:.05s"><div class="wi"><i class="fas fa-infinity"></i></div><h3>Full Lifecycle</h3><p>Supplier PO to customer gift card — one complete, connected system with no gaps.</p></div>
+        <div class="why-card fade" style="transition-delay:.12s"><div class="wi"><i class="fas fa-headset"></i></div><h3>Direct Support</h3><p>Speak to the developer. No call centres, no ticket queues. Real help, fast.</p></div>
+        <div class="why-card fade" style="transition-delay:.19s"><div class="wi"><i class="fas fa-chart-line"></i></div><h3>Grows With You</h3><p>Add users, locations, products as you scale. Unlimited accounts, multi-location ready.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:44px;">
+        <button class="btn-outline" onclick="showPage('why')"><i class="fas fa-trophy"></i> See Full Comparison</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-o1"></div><div class="cta-o2"></div>
+    <div class="wrap cta-inner">
+      <div class="eyebrow" style="color:var(--gold3)">Ready to Get Started?</div>
+      <h2>Transform Your <em>Retail</em><br>Operation Today</h2>
+      <p class="cta-sub">Complete POS with live dashboard, inventory, gift cards, promotions, and direct developer support.</p>
+      <div class="c-cards">
+        <a href="https://wa.me/966540961077" target="_blank" class="c-card wa"><i class="fab fa-whatsapp"></i><div><span class="ccl">WhatsApp</span><span class="ccs">+966 540 961 077</span></div></a>
+        <a href="mailto:ihsan.siddique@outlook.com" class="c-card"><i class="fas fa-envelope"></i><div><span class="ccl">Email</span><span class="ccs">ihsan.siddique@outlook.com</span></div></a>
+        <a href="https://www.linkedin.com/in/mohamed-siddique-mohamed-ihsan-bb552a146/" target="_blank" class="c-card"><i class="fab fa-linkedin"></i><div><span class="ccl">LinkedIn</span><span class="ccs">Mohamed Ihsan Siddique</span></div></a>
+      </div>
+      <button class="btn-primary" onclick="showPage('contact')" style="font-size:16px;padding:18px 40px;box-shadow:0 10px 32px rgba(184,145,42,.4)"><i class="fas fa-paper-plane"></i> Request a Demo &amp; Guide</button>
+      <div class="trust-row">
+        <span class="tchip"><i class="fas fa-check"></i> Real-Time Data</span>
+        <span class="tchip"><i class="fas fa-check"></i> No Data Loss · Full Rollback</span>
+        <span class="tchip"><i class="fas fa-check"></i> Multi-User · Unlimited Accounts</span>
+        <span class="tchip"><i class="fas fa-check"></i> Granular Role Control</span>
+      </div>
+    </div>
+  </section>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:ihsan.siddique@outlook.com">Ihsan Siddique</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: MODULES
+═══════════════════════════════════════ -->
+<div id="page-modules" class="page">
+  <div class="page-hero">
+    <div class="orb-sm a"></div><div class="orb-sm b"></div>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span style="color:var(--navy)">Modules</span></div>
+      <div class="eyebrow">Complete Module Suite</div>
+      <div class="stitle">13+ Integrated Modules<br><em style="font-style:italic;color:var(--gold)">Every Feature Explained</em></div>
+      <p class="ssub">Select any module below to see its full capabilities, step-by-step workflow, technical logic, and who uses it daily.</p>
+    </div>
+  </div>
+  <div class="section" style="background:var(--off);padding-top:40px;">
+    <div class="wrap">
+      <div class="mod-detail-grid">
+        <!-- SIDEBAR -->
+        <div class="mod-sidebar">
+          <div class="mod-sidebar-list">
+            <h4>All Modules</h4>
+            <div class="sb-scroll-wrap">
+            <button onclick="switchModule('dashboard')" id="sb-dashboard" class="active"><i class="fas fa-gauge-high"></i> Executive Dashboard</button>
+            <button onclick="switchModule('pos')" id="sb-pos"><i class="fas fa-cash-register"></i> Point of Sale</button>
+            <button onclick="switchModule('sales')" id="sb-sales"><i class="fas fa-file-invoice"></i> Sales & Reports</button>
+            <button onclick="switchModule('inventory')" id="sb-inventory"><i class="fas fa-boxes-stacked"></i> Inventory & Stock</button>
+            <button onclick="switchModule('po')" id="sb-po"><i class="fas fa-truck-ramp-box"></i> Purchase Orders</button>
+            <button onclick="switchModule('gifts')" id="sb-gifts"><i class="fas fa-gift"></i> Gift Cards</button>
+            <button onclick="switchModule('promos')" id="sb-promos"><i class="fas fa-tags"></i> Promotions</button>
+            <button onclick="switchModule('returns')" id="sb-returns"><i class="fas fa-rotate-left"></i> Return Stock</button>
+            <button onclick="switchModule('security')" id="sb-security"><i class="fas fa-shield-halved"></i> Login & Security</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTENT PANELS -->
+        <div class="mod-detail-content">
+
+          <!-- DASHBOARD -->
+          <div class="mod-detail-panel active" id="panel-dashboard">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-gauge-high"></i></div>
+              <h2>Executive Dashboard</h2>
+              <p class="desc">The command centre of the entire POS system. The Executive Dashboard gives management a live, real-time overview of every key performance indicator — revenue, profit, inventory value, and refund exposure — all on a single screen without needing to run a single report.</p>
+              <span class="mod-who"><i class="fas fa-user-tie"></i> Used by: Management & Owners</span>
+            </div>
+            <div class="benefits-row">
+              <div class="benefit-pill"><i class="fas fa-bolt"></i> Updates in real-time</div>
+              <div class="benefit-pill"><i class="fas fa-eye"></i> No manual refresh needed</div>
+              <div class="benefit-pill"><i class="fas fa-chart-pie"></i> Full financial snapshot</div>
+              <div class="benefit-pill"><i class="fas fa-triangle-exclamation"></i> Refund leakage tracking</div>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-coins"></i></div><h4>Lifetime Net Revenue</h4><p>Total sales amount minus all refunded transactions. Always accurate, always live — the true picture of your business's earnings since day one.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-percent"></i></div><h4>Profit Efficiency %</h4><p>Visual progress bar showing the ratio of profit to revenue. Instantly tells management whether the business is operating at healthy margins.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-warehouse"></i></div><h4>Inventory Capital Value</h4><p>Total buying cost of all current stock vs. potential sell-through value. Know exactly how much capital is tied up on the shelf at any moment.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-chart-line"></i></div><h4>Unrealized Profit</h4><p>Estimated margin on all stock currently in inventory. Calculated using the margin ratio from product costs — giving you the profit sitting on the shelves.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-sun"></i></div><h4>Today's Earnings</h4><p>Live display of today's total sales. Updates instantly with every completed transaction so management always knows the day's performance.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-water"></i></div><h4>Revenue Leakage Tracker</h4><p>Total cumulative value lost to customer refunds. Tracks financial exposure from reversals so management can see patterns and address root causes.</p></div>
+            </div>
+            <div class="tech-box">
+              <h3>Technical Logic</h3>
+              <div class="tech-grid">
+                <div class="tech-item"><dt>Virtual Profit Calculation</dt><dd>When recorded profit is zero but revenue exists, the system calculates a margin ratio from inventory (sell value minus cost ÷ sell value) and applies it as an estimated profit figure.</dd></div>
+                <div class="tech-item"><dt>Real-Time Updates</dt><dd>All KPIs query the live database on every page load and refresh automatically — no caching, no stale data. Every completed sale reflects immediately.</dd></div>
+                <div class="tech-item"><dt>Leakage Calculation</dt><dd>Sums the net value of all transactions marked as Refunded or Voided. Updated the moment a refund is processed.</dd></div>
+                <div class="tech-item"><dt>Avg. Transaction Value</dt><dd>Total completed sales revenue divided by number of completed transactions. Excludes voided and returned transactions from the count.</dd></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POS -->
+          <div class="mod-detail-panel" id="panel-pos">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-cash-register"></i></div>
+              <h2>Point of Sale Billing</h2>
+              <p class="desc">The core transaction engine of the system. Designed for speed and simplicity — a cashier can complete a full sale, from product scan to printed receipt, in under 30 seconds. Supports barcode scanning, name search, multi-level discounts, and three payment methods.</p>
+              <span class="mod-who"><i class="fas fa-user"></i> Used by: Cashiers</span>
+            </div>
+            <div class="benefits-row">
+              <div class="benefit-pill"><i class="fas fa-barcode"></i> Barcode & name search</div>
+              <div class="benefit-pill"><i class="fas fa-receipt"></i> Auto receipt print</div>
+              <div class="benefit-pill"><i class="fas fa-credit-card"></i> Cash / Card / Split</div>
+              <div class="benefit-pill"><i class="fas fa-tag"></i> Item & basket discounts</div>
+            </div>
+            <div class="how-steps">
+              <h3>Step-by-Step Sale Process</h3>
+              <div class="how-step"><div class="hs-num">1</div><div class="hs-body"><h5>Open the Billing Screen</h5><p>Cashier navigates to Point of Sale. A clean, empty cart is immediately ready to accept items — no loading screens or setup required.</p></div></div>
+              <div class="how-step"><div class="hs-num">2</div><div class="hs-body"><h5>Add Products to Cart</h5><p>Scan a barcode or type the product name. The system instantly retrieves the price, applicable tax rate, and current stock level. Out-of-stock items are flagged immediately.</p></div></div>
+              <div class="how-step"><div class="hs-num">3</div><div class="hs-body"><h5>Apply Discounts</h5><p>Apply a discount to a single line item (percentage or fixed amount) or across the entire basket. Any active promotions configured by management are automatically shown and selectable.</p></div></div>
+              <div class="how-step"><div class="hs-num">4</div><div class="hs-body"><h5>Select Payment Method</h5><p>Choose Cash, Card, or Split Payment. For cash, the system calculates change due. For split payments, it handles both portions independently and calculates the correct change for the cash portion.</p></div></div>
+              <div class="how-step"><div class="hs-num">5</div><div class="hs-body"><h5>Complete & Receipt Prints</h5><p>The sale is recorded with a unique invoice number. A full itemised receipt prints automatically — no additional steps required. Stock levels drop and the dashboard updates in real time.</p></div></div>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-print"></i></div><h4>Automatic Receipt Printing</h4><p>Receipt includes store details, full item list with quantities and prices, discount applied, payment method, change due, and a brand QR code. Zero extra steps for the cashier.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-rotate"></i></div><h4>Receipt Reprint</h4><p>Any past receipt can be reprinted at any time using the invoice number — essential when customers request duplicate receipts for expenses or returns.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-split"></i></div><h4>Split Payment Logic</h4><p>When a sale is split between cash and card, the system handles both portions. If the cash amount entered is zero, it defaults to full net payable — preventing negative change calculations.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-check-double"></i></div><h4>Live Stock Check</h4><p>Every product lookup includes a live stock availability check. Cashiers are instantly alerted if an item is low or out of stock before adding it to the cart.</p></div>
+            </div>
+          </div>
+
+          <!-- SALES -->
+          <div class="mod-detail-panel" id="panel-sales">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-file-invoice"></i></div>
+              <h2>Sales, Reports & Financial Analysis</h2>
+              <p class="desc">A comprehensive suite of reporting tools covering every financial dimension of your retail operation. From raw transaction history to detailed profit-per-item analysis, tax collection summaries, and Excel export — all in one Reports Hub accessible to authorised staff.</p>
+              <span class="mod-who"><i class="fas fa-calculator"></i> Used by: Management, Accountants</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-list-check"></i></div><h4>Sales History</h4><p>Complete chronological list of all transactions with date, customer name, invoice number, payment status, and final amount. Searchable by date range, customer, or invoice number.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-magnifying-glass-chart"></i></div><h4>Sales Detail Report</h4><p>Line-by-line breakdown of every item sold: buying cost (WAC frozen at sale), selling price, gross profit, and margin percentage. The most powerful profitability tool in the system.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-file-excel"></i></div><h4>One-Click Excel Export</h4><p>Exports the full Sales Detail Report as a tab-separated file with columns pre-formatted for accounting use. Returned and refunded items are automatically identified and their figures negated.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-percent"></i></div><h4>Tax Report</h4><p>Tax collected grouped by rate (e.g. 15% VAT) with a date-range filter. Designed specifically for periodic tax filing — shows exactly how much tax was collected per rate band.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-box"></i></div><h4>Item Sales History</h4><p>Per-product historical analysis — how many units sold, at what price, with what cost (frozen at time of each sale) and resulting profit. Essential for identifying top and bottom performers.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-file-invoice-dollar"></i></div><h4>Invoice Details</h4><p>Full breakdown of any single invoice: all line items, quantities, unit prices, discount applied, tax, and net payable amount — with an option to reprint the original receipt.</p></div>
+            </div>
+            <div class="tech-box">
+              <h3>Technical Logic</h3>
+              <div class="tech-grid">
+                <div class="tech-item"><dt>Frozen WAC Cost</dt><dd>Weighted Average Cost is captured and permanently saved at the moment of each sale line item. Historical profit figures remain accurate even when product costs change later.</dd></div>
+                <div class="tech-item"><dt>Dynamic Filtering</dt><dd>SQL conditions are built dynamically from active filters. Search terms use partial matching; status filters use exact matching. All parameters safely bound to prevent SQL injection.</dd></div>
+                <div class="tech-item"><dt>Tax Aggregation</dt><dd>Tax collected is calculated by multiplying each line item total by its product's configured tax rate, then grouped and summed by rate band — giving precise figures per tax category.</dd></div>
+                <div class="tech-item"><dt>Excel Export Logic</dt><dd>Sets download headers then outputs tab-separated rows. Returned items identified by status have their revenue and profit figures negated to correctly reflect reversals in accounting exports.</dd></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INVENTORY -->
+          <div class="mod-detail-panel" id="panel-inventory">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-boxes-stacked"></i></div>
+              <h2>Inventory & Stock Control</h2>
+              <p class="desc">Real-time visibility of every product across all storage locations. Colour-coded alerts make stock management effortless — managers see at a glance which products need reordering and which locations are running low, without manually checking shelves.</p>
+              <span class="mod-who"><i class="fas fa-store"></i> Used by: Store Managers</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-location-dot"></i></div><h4>Multi-Location Tracking</h4><p>Stock quantities tracked separately per storage location. View a product's availability across all locations simultaneously — essential for businesses with multiple storage areas or branches.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-traffic-light"></i></div><h4>Colour-Coded Alerts</h4><p>Green = healthy stock level. Amber = approaching the low-stock threshold. Red = zero stock, out of stock. Instantly identifies which products require urgent attention without reading numbers.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-scale-balanced"></i></div><h4>WAC Cost Per Product</h4><p>Buying cost and selling price maintained individually per product using Weighted Average Cost. Used in profit calculations across all reports and frozen at the time of each sale.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-file-lines"></i></div><h4>Full Movement Audit</h4><p>Every stock change — whether from a completed sale, a received purchase order, or a stock removal — is logged automatically, creating a permanent, traceable history of every unit.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-percent"></i></div><h4>Tax Rate Per Product</h4><p>Each product has its own configured tax rate. Used to calculate tax on every sale line item and rolled up into the Tax Report — ensuring tax compliance per product category.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-rotate-left"></i></div><h4>Return Stock Module</h4><p>Remove stock for supplier returns, damage, expiry, or inventory corrections. Every removal is wrapped in a database transaction and logged as a negative quantity entry for full traceability.</p></div>
+            </div>
+          </div>
+
+          <!-- PO -->
+          <div class="mod-detail-panel" id="panel-po">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-truck-ramp-box"></i></div>
+              <h2>Purchase Order Management</h2>
+              <p class="desc">Manages the complete lifecycle of supplier orders — from creation through receipt. When goods are marked as received, inventory updates automatically across all modules. Full supplier order history is available at any time.</p>
+              <span class="mod-who"><i class="fas fa-truck"></i> Used by: Purchasing, Managers</span>
+            </div>
+            <div class="how-steps">
+              <h3>Purchase Order Lifecycle</h3>
+              <div class="how-step"><div class="hs-num">1</div><div class="hs-body"><h5>Create the Order</h5><p>Raise a new PO directly in the system. Add the supplier name, all line items with quantities and unit costs. The system assigns a unique PO number automatically.</p></div></div>
+              <div class="how-step"><div class="hs-num">2</div><div class="hs-body"><h5>Status: Pending → Ordered</h5><p>Once submitted to the supplier, update the order status to Ordered. Edit quantities or line items at any point before goods arrive.</p></div></div>
+              <div class="how-step"><div class="hs-num">3</div><div class="hs-body"><h5>Mark Goods Received</h5><p>When delivery arrives, mark the order as Received. Inventory stock levels update automatically — no manual stock entry required. The WAC cost recalculates across affected products.</p></div></div>
+              <div class="how-step"><div class="hs-num">4</div><div class="hs-body"><h5>Full Supplier History</h5><p>Every order per supplier is stored and accessible. View order dates, quantities, costs, and status for any supplier at any time — essential for supplier negotiations and audit trails.</p></div></div>
+            </div>
+            <div class="tech-box">
+              <h3>Technical Logic</h3>
+              <div class="tech-grid">
+                <div class="tech-item"><dt>Safe Order Deletion</dt><dd>Uses a database transaction to delete all order line items first, then the order header. If either step fails, both are rolled back — preventing orphaned records in the database.</dd></div>
+                <div class="tech-item"><dt>Auto Inventory Update</dt><dd>On marking received, each line item quantity is added to the corresponding product's stock count. The transaction is atomic — all items update or none do.</dd></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GIFTS -->
+          <div class="mod-detail-panel" id="panel-gifts">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-gift"></i></div>
+              <h2>Gift Card Management</h2>
+              <p class="desc">Issue, track, and redeem unique gift cards. Every card gets a guaranteed unique 16-character code, is active immediately after creation, and maintains a full redemption history. An ideal tool for customer loyalty and promotions.</p>
+              <span class="mod-who"><i class="fas fa-bullhorn"></i> Used by: Marketing, Managers, Cashiers</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-key"></i></div><h4>Unique Code Generation</h4><p>Creates a random 16-character alphanumeric code, verifies uniqueness against the entire database before saving, then formats it as four groups of four: XXXX-XXXX-XXXX-XXXX.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-wallet"></i></div><h4>Balance & Expiry Control</h4><p>Set the initial balance per card and optionally set an expiry date. Cards can be created with any value — flexible for seasonal promotions, loyalty rewards, or refund credits.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-history"></i></div><h4>Full Redemption Tracking</h4><p>Every use of a gift card is recorded against the card, with date, amount redeemed, and remaining balance. Full transaction history viewable per card.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-table"></i></div><h4>Gift Card Report</h4><p>A comprehensive report showing all issued cards, current balances, expiry dates, and full redemption history — giving management complete visibility over the gift card programme.</p></div>
+            </div>
+          </div>
+
+          <!-- PROMOS -->
+          <div class="mod-detail-panel" id="panel-promos">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-tags"></i></div>
+              <h2>Promotions Management</h2>
+              <p class="desc">Create and manage time-limited discount campaigns. Link promotions to specific products or apply them across the full catalogue. Only active, in-date promotions appear at the billing screen — expired ones are hidden automatically, eliminating cashier error.</p>
+              <span class="mod-who"><i class="fas fa-bullhorn"></i> Used by: Marketing, Managers</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-calendar-days"></i></div><h4>Date-Controlled Campaigns</h4><p>Every promotion has a defined start and end date. Once the end date passes, the promotion is automatically hidden from the billing screen — no manual intervention required.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-link"></i></div><h4>Product-Linked Discounts</h4><p>Link a promotion to specific products only, or apply it across the entire product catalogue. Full flexibility to design targeted or store-wide discount campaigns.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-toggle-on"></i></div><h4>Instant Deactivation</h4><p>Deactivate any promotion with a single click — immediately removes it from the billing screen. Historical sales data linked to that promotion is never affected.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-pen-to-square"></i></div><h4>Edit Without Impact</h4><p>Edit promotion details, dates, or discount amounts at any time. Changes apply from that point forward only — past sales data and applied discounts remain unchanged.</p></div>
+            </div>
+          </div>
+
+          <!-- RETURNS -->
+          <div class="mod-detail-panel" id="panel-returns">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-rotate-left"></i></div>
+              <h2>Return Stock</h2>
+              <p class="desc">A dedicated module for removing stock from inventory with full accountability. Whether it's a supplier return, damaged goods, an expired product, or an inventory correction — every removal is logged, reversible, and permanently auditable.</p>
+              <span class="mod-who"><i class="fas fa-store"></i> Used by: Store Managers</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-truck-arrow-right"></i></div><h4>Supplier Returns</h4><p>Remove stock being returned to a supplier. Records the product, quantity, reason, and date — giving a clear paper trail for supplier credit claims and reconciliations.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-box-open"></i></div><h4>Damaged & Expired Goods</h4><p>Remove damaged or expired stock from the live inventory count. Keeps stock figures accurate and ensures out-of-date products cannot be sold at the POS.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-database"></i></div><h4>Database Transaction Safety</h4><p>Every stock removal is wrapped in a database transaction. On success, a negative quantity entry is written to the transaction log. If anything fails, the removal is fully rolled back.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-scroll"></i></div><h4>Permanent Audit Record</h4><p>Creates a permanent, reversible audit record. Management can view the complete history of all stock removals with dates, quantities, products, and reasons at any time.</p></div>
+            </div>
+          </div>
+
+          <!-- SECURITY -->
+          <div class="mod-detail-panel" id="panel-security">
+            <div class="mod-detail-header">
+              <div class="mod-header-icon"><i class="fas fa-shield-halved"></i></div>
+              <h2>User Login & Security</h2>
+              <p class="desc">Role-based access control built into the foundation of every module. Each staff member has their own login credentials. The system loads their specific permissions on login — they only ever see and access the modules their role permits.</p>
+              <span class="mod-who"><i class="fas fa-users"></i> Used by: All Staff</span>
+            </div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-user-lock"></i></div><h4>Individual Credentials</h4><p>Every staff member has a unique username and password. Shared accounts are not permitted — ensuring every action in the system is traceable to a specific person.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-list-check"></i></div><h4>Permission-Based Access</h4><p>On login, the system reads a comma-separated permissions list from the user record and loads it into the session. Every protected page checks this list before granting access.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-eye-slash"></i></div><h4>Module Visibility Control</h4><p>The navigation menu dynamically shows only the modules each user's account permits. Unauthorised modules are completely hidden — users cannot navigate to pages they don't have access to.</p></div>
+              <div class="feat-card"><div class="feat-card-icon"><i class="fas fa-file-shield"></i></div><h4>Full Action Audit Log</h4><p>Every significant action — sales, refunds, stock changes, PO receipts, gift card redemptions — is logged against the logged-in user, creating a permanent, searchable audit trail.</p></div>
+            </div>
+            <div class="tech-box">
+              <h3>Technical Logic</h3>
+              <div class="tech-grid">
+                <div class="tech-item"><dt>Session Permission Array</dt><dd>Permissions stored as a comma-separated string in the user record are loaded into a PHP session array at login. Every page performs an array_search check before rendering content.</dd></div>
+                <div class="tech-item"><dt>Page-Level Protection</dt><dd>Each module page independently verifies session permissions. Direct URL access to protected pages is blocked — security is enforced at the server, not just the UI.</dd></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end mod-detail-content -->
+      </div><!-- end mod-detail-grid -->
+    </div>
+  </div>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: WORKFLOW
+═══════════════════════════════════════ -->
+<div id="page-workflow" class="page">
+  <div class="page-hero">
+    <div class="orb-sm a"></div><div class="orb-sm b"></div>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span style="color:var(--navy)">How It Works</span></div>
+      <div class="eyebrow">Transaction Workflow</div>
+      <div class="stitle">How a Sale Works —<br><em style="font-style:italic;color:var(--gold)">Step by Step</em></div>
+      <p class="ssub">Every transaction follows a clear, consistent 7-step process. Your staff will find this workflow intuitive from day one — sale to receipt in seconds.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:50px;">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:40px;">
+        <div class="workflow-timeline">
+          <div class="wf-step fade">
+            <div class="wf-dot">1</div>
+            <div class="wf-card">
+              <h3>Staff Login & Access</h3>
+              <p class="wdesc">Each team member logs in with their own personal credentials. The system loads their role and permissions automatically, building their personalised navigation menu — showing only the modules they are authorised to use.</p>
+              <ul class="wf-detail-list">
+                <li>Unique credentials per staff member</li><li>Role loads automatically on login</li>
+                <li>Navigation built from permissions</li><li>Session secured throughout shift</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">2</div>
+            <div class="wf-card">
+              <h3>Open the Billing Screen</h3>
+              <p class="wdesc">Cashier navigates to the Point of Sale module. The screen presents a clean product search interface and empty cart, ready to accept items immediately. No configuration required before each sale.</p>
+              <ul class="wf-detail-list">
+                <li>Clean interface, zero clutter</li><li>Instant access — no loading</li>
+                <li>Search bar prominently positioned</li><li>Cart ready immediately on open</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">3</div>
+            <div class="wf-card">
+              <h3>Add Products to Cart</h3>
+              <p class="wdesc">Products are added by scanning a barcode or typing a product name. The system instantly retrieves the selling price, applicable tax rate, and current stock level. Out-of-stock items are flagged in real time.</p>
+              <ul class="wf-detail-list">
+                <li>Barcode scan supported</li><li>Name search with partial matching</li>
+                <li>Live stock level check</li><li>Price & tax auto-populated</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">4</div>
+            <div class="wf-card">
+              <h3>Apply Discounts</h3>
+              <p class="wdesc">Discounts can be applied at the individual item level or across the entire basket in a single action. Any active promotions configured by management are automatically available for selection — no manual entry required.</p>
+              <ul class="wf-detail-list">
+                <li>Item-level percentage or fixed discount</li><li>Basket-level discount in one action</li>
+                <li>Active promotions auto-available</li><li>Expired promotions hidden automatically</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">5</div>
+            <div class="wf-card">
+              <h3>Select Payment Method</h3>
+              <p class="wdesc">Cashier selects Cash, Card, or Split Payment. For cash, change due is calculated automatically. For split payments, the system handles both portions independently and calculates change on the cash portion without risk of showing negative values.</p>
+              <ul class="wf-detail-list">
+                <li>Cash — change calculated instantly</li><li>Card — no change calculation needed</li>
+                <li>Split — both portions handled</li><li>Split Payment Handler prevents errors</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">6</div>
+            <div class="wf-card">
+              <h3>Complete Sale — Receipt Prints</h3>
+              <p class="wdesc">The sale is recorded instantly with a unique invoice number. A full itemised receipt prints automatically — store details, all line items, discount applied, payment method, change due, and store QR code. No additional steps from the cashier.</p>
+              <ul class="wf-detail-list">
+                <li>Unique invoice number assigned</li><li>Full itemised receipt auto-prints</li>
+                <li>Store QR code on every receipt</li><li>Any receipt reprint by invoice #</li>
+              </ul>
+            </div>
+          </div>
+          <div class="wf-step fade">
+            <div class="wf-dot">7</div>
+            <div class="wf-card">
+              <h3>Dashboard & Reports Update Live</h3>
+              <p class="wdesc">The moment the sale is completed, all financial figures refresh across the entire system. Today's earnings, lifetime revenue, profit efficiency, inventory stock levels, and all report data update in real time — no manual sync, no waiting.</p>
+              <ul class="wf-detail-list">
+                <li>Dashboard KPIs update instantly</li><li>Stock levels deducted immediately</li>
+                <li>Sales Detail Report reflects sale</li><li>Tax Report updated automatically</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Side info -->
+        <div style="position:sticky;top:90px;height:fit-content;">
+          <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;padding:28px;color:white;margin-bottom:20px;">
+            <h3 style="font-family:var(--fd);font-size:22px;color:var(--gold3);margin-bottom:16px;">System at a Glance</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--gold3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">One Database</div><p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6">All modules share a single live source of truth — no duplicate data, no sync errors, ever.</p></div>
+              <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--gold3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Real-Time</div><p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6">Every sale, stock movement, and return reflects instantly across all screens and reports.</p></div>
+              <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--gold3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Role-Based</div><p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6">Each staff member sees only the modules they're permitted to use — nothing more.</p></div>
+            </div>
+          </div>
+          <div style="background:white;border-radius:18px;border:1px solid var(--gold-border);padding:24px;box-shadow:0 4px 16px var(--shadow);">
+            <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;">Data Flow</h4>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--slate);">
+              <div style="display:flex;align-items:center;gap:8px;"><span style="background:var(--gold-soft);border:1px solid var(--gold-border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--gold)">PO Received</span><i class="fas fa-arrow-right" style="color:var(--gold);font-size:10px"></i></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="background:var(--teal-soft);border:1px solid rgba(8,145,178,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--teal)">Stock Updated</span><i class="fas fa-arrow-right" style="color:var(--gold);font-size:10px"></i></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="background:var(--gold-soft);border:1px solid var(--gold-border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--gold)">Sale Completed</span><i class="fas fa-arrow-right" style="color:var(--gold);font-size:10px"></i></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="background:var(--teal-soft);border:1px solid rgba(8,145,178,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--teal)">Stock Deducted</span><i class="fas fa-arrow-right" style="color:var(--gold);font-size:10px"></i></div>
+              <div><span style="background:linear-gradient(135deg,rgba(184,145,42,.15),rgba(184,145,42,.05));border:1px solid var(--gold-border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--navy)">All Reports &amp; Dashboard Live</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: ROLES
+═══════════════════════════════════════ -->
+<div id="page-roles" class="page">
+  <div class="page-hero">
+    <div class="orb-sm a"></div><div class="orb-sm b"></div>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span style="color:var(--navy)">Staff Roles</span></div>
+      <div class="eyebrow">Role-Based Access</div>
+      <div class="stitle">A System for<br><em style="font-style:italic;color:var(--gold)">Every Role</em></div>
+      <p class="ssub">Select your role to see exactly which modules you'll use daily, what each task involves, and key tips for your workflow.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:50px;">
+    <div class="wrap">
+      <div class="roles-tabs">
+        <button class="role-tab active" onclick="switchRole('cashier')" id="tab-cashier"><i class="fas fa-cash-register"></i> Cashier</button>
+        <button class="role-tab" onclick="switchRole('manager')" id="tab-manager"><i class="fas fa-store"></i> Store Manager</button>
+        <button class="role-tab" onclick="switchRole('purchasing')" id="tab-purchasing"><i class="fas fa-truck"></i> Purchasing</button>
+        <button class="role-tab" onclick="switchRole('accountant')" id="tab-accountant"><i class="fas fa-calculator"></i> Accountant</button>
+        <button class="role-tab" onclick="switchRole('marketing')" id="tab-marketing"><i class="fas fa-bullhorn"></i> Marketing</button>
+      </div>
+
+      <!-- CASHIER -->
+      <div class="role-panel active" id="role-cashier">
+        <div class="role-profile">
+          <div class="role-avatar"><i class="fas fa-cash-register"></i></div>
+          <h2>Cashier</h2>
+          <p>The front-line of every transaction. Cashiers process all sales, accept payments, and ensure customers receive accurate receipts — quickly and without errors.</p>
+          <span class="access-level"><i class="fas fa-key"></i> POS Access Level</span>
+          <div class="role-modules-list">
+            <h4>Permitted Modules</h4>
+            <div class="rmod"><i class="fas fa-cash-register"></i> Point of Sale Billing</div>
+            <div class="rmod"><i class="fas fa-receipt"></i> Receipt Printing & Reprint</div>
+            <div class="rmod"><i class="fas fa-gift"></i> Gift Card Redemption</div>
+            <div class="rmod"><i class="fas fa-tags"></i> Active Promotions (view)</div>
+          </div>
+        </div>
+        <div class="role-tasks">
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-cart-shopping"></i></div><h4>Processing a Sale</h4></div><p>Open the billing screen, scan or search each product, verify the price and stock, apply any discounts, select the payment method (Cash, Card, or Split), and complete the transaction. The receipt prints automatically.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: If an item shows zero stock, do not complete the sale — inform the store manager immediately.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-tag"></i></div><h4>Applying Discounts</h4></div><p>You can apply a discount to a single item (percentage or fixed amount) or to the entire basket. Active promotions created by management appear automatically — select them directly without typing any discount codes.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Only management can create or modify promotions — if a customer requests a discount not in the system, escalate to your manager.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-money-bill-wave"></i></div><h4>Handling Split Payments</h4></div><p>Select Split Payment to accept part cash, part card. The system calculates the correct change for the cash portion automatically. Never manually calculate split payment change — always let the system handle it.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: The system prevents negative change from displaying — if it shows zero change, the card covers the remainder.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-print"></i></div><h4>Reprinting Receipts</h4></div><p>If a customer needs a duplicate receipt, navigate to Receipt Reprint and enter the original invoice number. The full original receipt prints immediately — no manager approval needed.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Every receipt shows the invoice number at the top — always ask the customer to keep it for any future reprints.</span></div></div>
+        </div>
+      </div>
+
+      <!-- MANAGER -->
+      <div class="role-panel" id="role-manager">
+        <div class="role-profile">
+          <div class="role-avatar"><i class="fas fa-store"></i></div>
+          <h2>Store Manager</h2>
+          <p>Oversees the full store operation — monitoring performance, managing stock, controlling promotions, and ensuring inventory accuracy through the return stock module.</p>
+          <span class="access-level"><i class="fas fa-key"></i> Management Access Level</span>
+          <div class="role-modules-list">
+            <h4>Permitted Modules</h4>
+            <div class="rmod"><i class="fas fa-gauge-high"></i> Executive Dashboard</div>
+            <div class="rmod"><i class="fas fa-boxes-stacked"></i> Inventory & Stock View</div>
+            <div class="rmod"><i class="fas fa-rotate-left"></i> Return Stock</div>
+            <div class="rmod"><i class="fas fa-tags"></i> Promotions Management</div>
+            <div class="rmod"><i class="fas fa-file-invoice"></i> Sales History</div>
+          </div>
+        </div>
+        <div class="role-tasks">
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-gauge-high"></i></div><h4>Monitoring the Dashboard</h4></div><p>Check the Executive Dashboard at the start and end of every shift. Review today's earnings, profit efficiency percentage, refund leakage, and any low-stock alerts. This single screen tells you the health of your entire operation.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: High refund leakage is a signal to investigate — check Sales History to identify patterns in refunded transactions.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-boxes-stacked"></i></div><h4>Managing Inventory</h4></div><p>Review the Inventory module daily. Red items need immediate attention — raise a Purchase Order before stock runs out. Amber items need to be monitored. Use the colour alerts to prioritise your reordering decisions.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Set low-stock thresholds appropriately for each product's sales velocity — fast movers need higher thresholds.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-rotate-left"></i></div><h4>Processing Stock Returns</h4></div><p>When removing stock for supplier returns, damage, or expiry — always use the Return Stock module. Never adjust stock manually. Every removal creates a permanent audit record that protects both you and the business.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Include a clear reason note for every return — this is your audit trail for supplier credit claims.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-tags"></i></div><h4>Running Promotions</h4></div><p>Create promotions with defined start and end dates before campaigns go live. Link them to specific products or the full catalogue. Once created, cashiers see them automatically — no briefing needed. Deactivate instantly when a promotion ends early.</p></div>
+        </div>
+      </div>
+
+      <!-- PURCHASING -->
+      <div class="role-panel" id="role-purchasing">
+        <div class="role-profile">
+          <div class="role-avatar"><i class="fas fa-truck"></i></div>
+          <h2>Purchasing</h2>
+          <p>Manages the complete supplier ordering process — from raising purchase orders to receiving goods and ensuring inventory is updated automatically on delivery.</p>
+          <span class="access-level"><i class="fas fa-key"></i> Purchasing Access Level</span>
+          <div class="role-modules-list">
+            <h4>Permitted Modules</h4>
+            <div class="rmod"><i class="fas fa-truck-ramp-box"></i> Purchase Orders</div>
+            <div class="rmod"><i class="fas fa-boxes-stacked"></i> Inventory View (read)</div>
+          </div>
+        </div>
+        <div class="role-tasks">
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-file-circle-plus"></i></div><h4>Creating a Purchase Order</h4></div><p>Navigate to Purchase Orders and create a new PO. Enter the supplier name, then add each line item with product, quantity, and unit cost. The system assigns a unique PO number. Save the order — its status is set to Pending automatically.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: You can edit quantities at any time before marking the order as received — always verify quantities match the delivery note.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-truck-fast"></i></div><h4>Receiving a Delivery</h4></div><p>When goods arrive, locate the PO in the system. Verify quantities match what was delivered. Mark the order as Received — inventory stock levels update automatically for every line item. No manual stock entry is needed.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Only mark as Received once goods are physically confirmed — this is the moment stock enters your system count.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-clock-rotate-left"></i></div><h4>Supplier History</h4></div><p>All orders per supplier are permanently stored and accessible. Use supplier history to verify past order quantities, costs, and delivery patterns — essential data for supplier negotiations and price comparisons.</p></div>
+        </div>
+      </div>
+
+      <!-- ACCOUNTANT -->
+      <div class="role-panel" id="role-accountant">
+        <div class="role-profile">
+          <div class="role-avatar"><i class="fas fa-calculator"></i></div>
+          <h2>Accountant</h2>
+          <p>Has read access to all financial reports — Sales Detail, Tax, Invoice History, and Sales History. Generates exports and reconciles financial data for audit, filing, and management reporting.</p>
+          <span class="access-level"><i class="fas fa-key"></i> Finance Access Level</span>
+          <div class="role-modules-list">
+            <h4>Permitted Modules</h4>
+            <div class="rmod"><i class="fas fa-table-list"></i> Sales Detail Report</div>
+            <div class="rmod"><i class="fas fa-percent"></i> Tax Report</div>
+            <div class="rmod"><i class="fas fa-file-invoice-dollar"></i> Invoice Details</div>
+            <div class="rmod"><i class="fas fa-list"></i> Sales History</div>
+            <div class="rmod"><i class="fas fa-chart-line"></i> Item Sales History</div>
+          </div>
+        </div>
+        <div class="role-tasks">
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-file-excel"></i></div><h4>Generating the Sales Detail Report</h4></div><p>Navigate to Sales Detail Report, set your date range, and click Export. The system produces a tab-separated file with buying cost, selling price, profit, and margin per line item. Returned items are already negated in the export — ready for your accounting software.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Run this report monthly and reconcile it against your bank statements. The WAC costs are frozen — figures will not change even if costs update later.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-percent"></i></div><h4>Preparing Tax Filing</h4></div><p>Go to the Tax Report, filter by your VAT filing period, and review tax collected by rate. The system groups and sums tax by rate band — giving you precisely the figures required for VAT returns without any manual calculation.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Cross-reference with Sales History to verify total sales figures match your tax collected — any discrepancy needs investigation.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-magnifying-glass"></i></div><h4>Invoice Verification & Audit</h4></div><p>Use Invoice Details to pull up any individual transaction. See all line items, quantities, unit prices, discount applied, tax, and net payable. Use Sales History to search by date or invoice number for reconciliation and audit requests.</p></div>
+        </div>
+      </div>
+
+      <!-- MARKETING -->
+      <div class="role-panel" id="role-marketing">
+        <div class="role-profile">
+          <div class="role-avatar"><i class="fas fa-bullhorn"></i></div>
+          <h2>Marketing</h2>
+          <p>Controls the customer loyalty and promotional tools — issuing gift cards, running discount campaigns, and tracking the performance of marketing initiatives through redemption reports.</p>
+          <span class="access-level"><i class="fas fa-key"></i> Marketing Access Level</span>
+          <div class="role-modules-list">
+            <h4>Permitted Modules</h4>
+            <div class="rmod"><i class="fas fa-gift"></i> Gift Card Management</div>
+            <div class="rmod"><i class="fas fa-tags"></i> Promotions Management</div>
+            <div class="rmod"><i class="fas fa-chart-bar"></i> Gift Card Report</div>
+          </div>
+        </div>
+        <div class="role-tasks">
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-gift"></i></div><h4>Issuing Gift Cards</h4></div><p>Navigate to Gift Cards and create a new card. The system generates a unique 16-character code automatically — formatted as XXXX-XXXX-XXXX-XXXX. Set the balance and optional expiry date. The card is active at the POS immediately after saving.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Always print or note the card code for the customer — they cannot redeem without it. The code is only shown once at creation.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-tags"></i></div><h4>Creating a Promotion</h4></div><p>Go to Promotions and create a new campaign. Give it a name, set the start and end dates, choose the discount type (percentage or fixed), and link it to specific products or the full catalogue. Once the start date is reached, cashiers see it automatically at the billing screen.</p><div class="rtask-tip"><i class="fas fa-lightbulb"></i> <span>Tip: Set end dates carefully — the system hides expired promotions automatically. Test the promotion in the billing screen after creation to verify it appears correctly.</span></div></div>
+          <div class="rtask"><div class="rtask-top"><div class="rtask-icon"><i class="fas fa-table"></i></div><h4>Tracking Gift Card Performance</h4></div><p>The Gift Card Report shows all issued cards with current balances, expiry dates, and complete redemption history. Use this to measure campaign effectiveness, identify unused balances, and report on the overall gift card programme performance.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: WHY US
+═══════════════════════════════════════ -->
+<div id="page-why" class="page">
+  <div class="page-hero">
+    <div class="orb-sm a"></div><div class="orb-sm b"></div>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span style="color:var(--navy)">Why i Solutions</span></div>
+      <div class="eyebrow">The Complete Retail Technology Partner</div>
+      <div class="stitle">Why Choose<br><em style="font-style:italic;color:var(--gold)">i Solutions?</em></div>
+      <p class="ssub">An honest comparison — what makes i Solutions the right choice for serious retail businesses in Saudi Arabia and beyond.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:50px;">
+    <div class="wrap">
+      <div class="eyebrow fade">Feature Comparison</div>
+      <div class="stitle fade" style="font-size:36px">i Solutions vs Generic POS</div>
+      <div class="rule fade"></div>
+      <div style="overflow-x:auto;">
+      <table class="comparison-table fade">
+        <thead><tr><th>Feature</th><th class="highlight">i Solutions v4.3</th><th>Generic POS</th><th>Basic Spreadsheet</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Live Executive Dashboard</strong><br><span style="color:var(--mid);font-size:12px">Real-time KPIs, profit efficiency, leakage</span></td><td><i class="fas fa-check tick"></i> Full, real-time</td><td><i class="fas fa-minus part"></i> Limited</td><td><i class="fas fa-times cross"></i> Manual only</td></tr>
+          <tr><td><strong>WAC Frozen Cost at Sale</strong><br><span style="color:var(--mid);font-size:12px">Accurate historical profit forever</span></td><td><i class="fas fa-check tick"></i> Automatic</td><td><i class="fas fa-minus part"></i> Rarely</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Split Payment Handling</strong><br><span style="color:var(--mid);font-size:12px">Cash + Card with correct change</span></td><td><i class="fas fa-check tick"></i> Full + error-safe</td><td><i class="fas fa-minus part"></i> Basic</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Role-Based Module Access</strong><br><span style="color:var(--mid);font-size:12px">Granular per-user permissions</span></td><td><i class="fas fa-check tick"></i> Granular</td><td><i class="fas fa-minus part"></i> Basic roles</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Purchase Order Lifecycle</strong><br><span style="color:var(--mid);font-size:12px">Full PO → auto inventory update</span></td><td><i class="fas fa-check tick"></i> Complete</td><td><i class="fas fa-minus part"></i> Partial</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Gift Card System</strong><br><span style="color:var(--mid);font-size:12px">Unique codes, balances, redemption tracking</span></td><td><i class="fas fa-check tick"></i> Full system</td><td><i class="fas fa-minus part"></i> Add-on cost</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Promotions Management</strong><br><span style="color:var(--mid);font-size:12px">Date-controlled, auto-expiry</span></td><td><i class="fas fa-check tick"></i> Full + auto-expiry</td><td><i class="fas fa-minus part"></i> Manual</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Full Audit Trail</strong><br><span style="color:var(--mid);font-size:12px">Every action logged, reversible</span></td><td><i class="fas fa-check tick"></i> Complete</td><td><i class="fas fa-minus part"></i> Basic logs</td><td><i class="fas fa-times cross"></i> No</td></tr>
+          <tr><td><strong>Excel Export (Accounting-Ready)</strong><br><span style="color:var(--mid);font-size:12px">Pre-formatted, refunds negated</span></td><td><i class="fas fa-check tick"></i> One click</td><td><i class="fas fa-minus part"></i> Generic CSV</td><td><i class="fas fa-minus part"></i> Manual</td></tr>
+          <tr><td><strong>Tax Report by Rate Band</strong><br><span style="color:var(--mid);font-size:12px">Filing-ready groupings</span></td><td><i class="fas fa-check tick"></i> Automatic</td><td><i class="fas fa-minus part"></i> Basic</td><td><i class="fas fa-times cross"></i> Manual</td></tr>
+          <tr><td><strong>Direct Developer Support</strong><br><span style="color:var(--mid);font-size:12px">No call centres, no ticket queues</span></td><td><i class="fas fa-check tick"></i> Direct access</td><td><i class="fas fa-times cross"></i> Call centre</td><td><i class="fas fa-times cross"></i> None</td></tr>
+          <tr><td><strong>Multi-Location Stock</strong><br><span style="color:var(--mid);font-size:12px">Per-location tracking</span></td><td><i class="fas fa-check tick"></i> Included</td><td><i class="fas fa-minus part"></i> Premium tier</td><td><i class="fas fa-times cross"></i> No</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="why-grid" style="margin-top:60px;">
+        <div class="why-card fade"><div class="wi"><i class="fas fa-gauge-simple-high"></i></div><h3>Built for Speed</h3><p>Every workflow is designed to be completed in the minimum possible steps. From product scan to receipt — seconds, not minutes. Zero friction at the counter means happier customers and higher transaction throughput.</p></div>
+        <div class="why-card fade" style="transition-delay:.07s"><div class="wi"><i class="fas fa-shield-halved"></i></div><h3>Secure by Design</h3><p>Security is not an afterthought. Role-based permissions are enforced at the server level on every page — not just the navigation. Every action is logged against a real user account, creating complete accountability.</p></div>
+        <div class="why-card fade" style="transition-delay:.14s"><div class="wi"><i class="fas fa-circle-check"></i></div><h3>Numbers You Can Trust</h3><p>The WAC frozen cost system ensures your profit figures are permanently accurate — even when supplier prices change. You'll never have a report that shows incorrect margins because costs were updated after the sale.</p></div>
+        <div class="why-card fade"><div class="wi"><i class="fas fa-headset"></i></div><h3>Real Support</h3><p>When you have a question, you reach the person who wrote the system. Not a call centre, not a support ticket that gets closed in 48 hours. Direct, knowledgeable, fast support from the developer who knows every line of code.</p></div>
+        <div class="why-card fade" style="transition-delay:.07s"><div class="wi"><i class="fas fa-infinity"></i></div><h3>One Complete System</h3><p>No integrations to manage, no third-party apps to subscribe to, no data to export between systems. Everything from supplier purchase orders to customer gift cards is inside one platform, sharing one database.</p></div>
+        <div class="why-card fade" style="transition-delay:.14s"><div class="wi"><i class="fas fa-chart-line"></i></div><h3>Built to Scale</h3><p>Add staff accounts, locations, and products without limits. The system handles unlimited transactions without performance degradation. As your business grows, the system grows with it — no plan upgrades required.</p></div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: CONTACT
+═══════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="page-hero" style="min-height:auto;padding-bottom:0;">
+    <div class="orb-sm a"></div><div class="orb-sm b"></div>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span style="color:var(--navy)">Get a Demo</span></div>
+      <div class="eyebrow">Ready to Get Started?</div>
+      <div class="stitle">Request a Demo<br><em style="font-style:italic;color:var(--gold)">&amp; Full Guide</em></div>
+      <p class="ssub">Speak directly with Ihsan Siddique, the developer behind i Solutions. Get a personalised walkthrough of the system, see it live, and ask any questions.</p>
+    </div>
+  </div>
+  <div class="section" style="background:var(--off);padding-top:60px;">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px;margin:0 auto;">
+        <div>
+          <h3 style="font-family:var(--fd);font-size:28px;color:var(--navy);margin-bottom:24px;">Contact Directly</h3>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <a href="https://wa.me/966540961077?text=Hello%2C%20I%20am%20interested%20in%20a%20demo%20of%20i%20Solutions%20POS" target="_blank" style="background:white;border:1.5px solid #dcfce7;border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='#4ade80';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#dcfce7';this.style.transform='none'">
+              <div style="width:50px;height:50px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:22px;color:#16a34a;flex-shrink:0"><i class="fab fa-whatsapp"></i></div>
+              <div><div style="font-weight:700;color:var(--navy);font-size:15px">WhatsApp</div><div style="font-size:13px;color:var(--mid)">+966 540 961 077</div><div style="font-size:12px;color:#16a34a;margin-top:2px">Fastest response</div></div>
+            </a>
+            <a href="mailto:ihsan.siddique@outlook.com?subject=i Solutions POS Demo Request" style="background:white;border:1.5px solid var(--gold-border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='none'">
+              <div style="width:50px;height:50px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);flex-shrink:0"><i class="fas fa-envelope"></i></div>
+              <div><div style="font-weight:700;color:var(--navy);font-size:15px">Email</div><div style="font-size:13px;color:var(--mid)">ihsan.siddique@outlook.com</div><div style="font-size:12px;color:var(--gold);margin-top:2px">Full guide attached on request</div></div>
+            </a>
+            <a href="https://www.linkedin.com/in/mohamed-siddique-mohamed-ihsan-bb552a146/" target="_blank" style="background:white;border:1.5px solid rgba(10,102,194,.2);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='#0a66c2';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(10,102,194,.2)';this.style.transform='none'">
+              <div style="width:50px;height:50px;border-radius:14px;background:rgba(10,102,194,.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:#0a66c2;flex-shrink:0"><i class="fab fa-linkedin"></i></div>
+              <div><div style="font-weight:700;color:var(--navy);font-size:15px">LinkedIn</div><div style="font-size:13px;color:var(--mid)">Mohamed Ihsan Siddique</div><div style="font-size:12px;color:#0a66c2;margin-top:2px">Professional profile & background</div></div>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:22px;padding:36px;color:white;margin-bottom:20px;">
+            <h3 style="font-family:var(--fd);font-size:24px;color:var(--gold3);margin-bottom:20px;">What You Get</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;gap:12px;align-items:flex-start;"><i class="fas fa-check-circle" style="color:var(--gold3);margin-top:3px;flex-shrink:0"></i><span style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.6">Live system walkthrough — see every module in action</span></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;"><i class="fas fa-check-circle" style="color:var(--gold3);margin-top:3px;flex-shrink:0"></i><span style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.6">Full PDF Customer Orientation & Feature Guide</span></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;"><i class="fas fa-check-circle" style="color:var(--gold3);margin-top:3px;flex-shrink:0"></i><span style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.6">Personalised setup consultation for your retail type</span></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;"><i class="fas fa-check-circle" style="color:var(--gold3);margin-top:3px;flex-shrink:0"></i><span style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.6">Pricing and implementation timeline discussion</span></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;"><i class="fas fa-check-circle" style="color:var(--gold3);margin-top:3px;flex-shrink:0"></i><span style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.6">Direct access to the developer — all your questions answered</span></div>
+            </div>
+          </div>
+          <div style="background:white;border-radius:16px;border:1px solid var(--gold-border);padding:24px;box-shadow:0 4px 16px var(--shadow);">
+            <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">Developer</div>
+            <div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--navy);margin-bottom:4px;">Ihsan Siddique</div>
+            <div style="font-size:13px;color:var(--mid);margin-bottom:14px;">Developer & Maintainer · i Solutions Retail Technology · POS System v4.3 Enterprise</div>
+            <div style="font-size:13px;color:var(--slate);line-height:1.7">Designed and built this system from the ground up for the specific needs of retail businesses — optimised for accuracy, speed, and profitability. Available for direct consultation and ongoing support.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:ihsan.siddique@outlook.com">Ihsan Siddique</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
+</div>
+
+<script>
+// ── MOBILE NAV ──
+function toggleMobileNav(){
+  const mn=document.getElementById('mobileNav');
+  const hb=document.getElementById('hamburger');
+  const isOpen=mn.classList.contains('open');
+  mn.classList.toggle('open');
+  hb.classList.toggle('open');
+  // prevent body scroll when menu open
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+function closeMobileNav(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+// close drawer when clicking outside
+document.addEventListener('click',function(e){
+  const mn=document.getElementById('mobileNav');
+  const hb=document.getElementById('hamburger');
+  if(mn && hb && mn.classList.contains('open') && !mn.contains(e.target) && !hb.contains(e.target)){
+    closeMobileNav();
+  }
+});
+
+// ── PAGE ROUTER ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links button, .nav-links a').forEach(b => b.classList.remove('active'));
+  const nb = document.getElementById('nav-' + id);
+  if(nb) nb.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(triggerFades, 100);
+}
+
+// ── MODULE SWITCHER ──
+function switchModule(id) {
+  document.querySelectorAll('.mod-detail-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.mod-sidebar-list button').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.getElementById('sb-' + id).classList.add('active');
+}
+
+function openModule(id) {
+  showPage('modules');
+  setTimeout(() => switchModule(id), 50);
+}
+
+// ── ROLE SWITCHER ──
+function switchRole(id) {
+  document.querySelectorAll('.role-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('role-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── SCROLL FADE ──
+function triggerFades() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.07, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.page.active .fade').forEach(el => {
+    el.classList.remove('in');
+    obs.observe(el);
+  });
+}
+triggerFades();
+
+// ── NAV SHADOW ──
+window.addEventListener('scroll', () => {
+  document.getElementById('topnav').style.boxShadow = window.scrollY > 50 ? '0 4px 28px rgba(15,39,68,.13)' : '0 2px 20px rgba(15,39,68,.07)';
+});
+
+// ── 3D DASH PARALLAX ──
+const dw = document.getElementById('dashWrap');
+if(dw && dw.parentElement) {
+  dw.parentElement.addEventListener('mousemove', e => {
+    const r = dw.parentElement.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    dw.style.transform = `rotateY(${x*16}deg) rotateX(${-y*10}deg)`;
+  });
+  dw.parentElement.addEventListener('mouseleave', () => {
+    dw.style.transform = 'rotateY(-8deg) rotateX(4deg)';
+  });
+}
+</script>
+</body>
+</html>
 
