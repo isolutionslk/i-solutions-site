@@ -593,23 +593,171 @@ footer a{color:var(--gold);text-decoration:none;}
       <div class="fade" style="transition-delay:.2s;position:relative;padding:30px 20px 30px 30px;">
         <div class="fchip chip1"><div class="chi"><i class="fas fa-bolt"></i></div><span style="color:var(--navy);font-weight:600">Live sync · real-time data</span></div>
         <div class="fchip chip2"><div class="chi"><i class="fas fa-shield-halved"></i></div><span style="color:var(--navy);font-weight:600">Role-based security</span></div>
-        <div class="dash-scene"><div class="dash-wrapper" id="dashWrap">
-          <div class="dash-card">
-            <div class="dash-hbar"><span class="dt">Executive Dashboard</span><span class="lpill"><span class="ldot"></span> Live</span></div>
-            <div class="dash-body">
-              <div class="kpi-g">
-                <div class="kpi-b"><div class="kl">Today's Earnings</div><div class="kv">SAR 8,420</div><div class="kd up">↑ +18% vs yesterday</div></div>
-                <div class="kpi-b"><div class="kl">Lifetime Revenue</div><div class="kv">SAR 1.24M</div><div class="kd up">Net of refunds</div></div>
-                <div class="kpi-b"><div class="kl">Avg. Transaction</div><div class="kv">SAR 96.30</div><div class="kd" style="color:var(--mid)">All payment types</div></div>
-                <div class="kpi-b"><div class="kl">Revenue Leakage</div><div class="kv">SAR 4,230</div><div class="kd dn">↓ Refund tracked</div></div>
+
+        <!-- ── 5-SCREEN SLIDESHOW ── -->
+        <div class="dash-scene">
+          <div class="dash-wrapper" id="dashWrap">
+            <div class="slide-track" id="slideTrack">
+
+              <!-- SLIDE 1: Executive Dashboard -->
+              <div class="dash-slide" id="slide-0">
+                <div class="dash-card">
+                  <div class="dash-hbar"><span class="dt">Executive Dashboard</span><span class="lpill"><span class="ldot"></span> Live</span></div>
+                  <div class="dash-body">
+                    <div class="kpi-g">
+                      <div class="kpi-b"><div class="kl">Today's Earnings</div><div class="kv">LKR 142,500</div><div class="kd up">↑ +18% vs yesterday</div></div>
+                      <div class="kpi-b"><div class="kl">Lifetime Revenue</div><div class="kv">LKR 18.6M</div><div class="kd up">Net of refunds</div></div>
+                      <div class="kpi-b"><div class="kl">Avg. Transaction</div><div class="kv">LKR 1,850</div><div class="kd" style="color:var(--mid)">All payment types</div></div>
+                      <div class="kpi-b"><div class="kl">Revenue Leakage</div><div class="kv">LKR 68,400</div><div class="kd dn">↓ Refund tracked</div></div>
+                    </div>
+                    <div class="br"><div class="bt"><span>Profit Efficiency</span><span style="color:var(--gold);font-weight:700">68.4%</span></div><div class="btr"><div class="bf" style="width:68%"></div></div></div>
+                    <div class="br"><div class="bt"><span>Inventory Sell-Through</span><span style="color:var(--teal);font-weight:700">58%</span></div><div class="btr"><div class="bf bl" style="width:58%"></div></div></div>
+                    <div class="br"><div class="bt"><span>Unrealized Profit</span><span style="color:var(--gold);font-weight:700">LKR 4.2M</span></div><div class="btr"><div class="bf" style="width:42%"></div></div></div>
+                    <div class="dtags"><span class="dtag am">4 Active Promos</span><span class="dtag gr">12 Gift Cards</span><span class="dtag rd">3 Low Stock</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="br"><div class="bt"><span>Profit Efficiency</span><span style="color:var(--gold);font-weight:700">68.4%</span></div><div class="btr"><div class="bf" style="width:68%"></div></div></div>
-              <div class="br"><div class="bt"><span>Inventory Sell-Through</span><span style="color:var(--teal);font-weight:700">58%</span></div><div class="btr"><div class="bf bl" style="width:58%"></div></div></div>
-              <div class="br"><div class="bt"><span>Unrealized Profit</span><span style="color:var(--gold);font-weight:700">SAR 247k</span></div><div class="btr"><div class="bf" style="width:42%"></div></div></div>
-              <div class="dtags"><span class="dtag am">4 Active Promos</span><span class="dtag gr">12 Gift Cards</span><span class="dtag rd">3 Low Stock</span></div>
-            </div>
+
+              <!-- SLIDE 2: Point of Sale -->
+              <div class="dash-slide" id="slide-1" style="display:none">
+                <div class="dash-card">
+                  <div class="dash-hbar"><span class="dt">Point of Sale · Billing</span><span class="lpill"><span class="ldot"></span> Active</span></div>
+                  <div class="dash-body">
+                    <div style="background:var(--off);border-radius:10px;padding:10px 12px;margin-bottom:10px;border:1px solid var(--light2);display:flex;align-items:center;gap:8px;">
+                      <i class="fas fa-barcode" style="color:var(--gold);font-size:13px"></i>
+                      <span style="font-size:12px;color:var(--mid)">Scan barcode or search product…</span>
+                    </div>
+                    <div style="font-size:10px;font-weight:700;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;">Cart Items</div>
+                    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+                      <div style="background:var(--off);border-radius:9px;padding:9px 12px;border:1px solid var(--light2);display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="font-size:12px;font-weight:600;color:var(--navy)">Samsung Charger 45W</div><div style="font-size:10px;color:var(--mid)">Qty: 2 × LKR 3,500</div></div>
+                        <div style="font-size:13px;font-weight:700;color:var(--navy)">LKR 7,000</div>
+                      </div>
+                      <div style="background:var(--off);border-radius:9px;padding:9px 12px;border:1px solid var(--light2);display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="font-size:12px;font-weight:600;color:var(--navy)">USB-C Cable 2m</div><div style="font-size:10px;color:var(--mid)">Qty: 1 × LKR 1,800</div></div>
+                        <div style="font-size:13px;font-weight:700;color:var(--navy)">LKR 1,800</div>
+                      </div>
+                      <div style="background:var(--off);border-radius:9px;padding:9px 12px;border:1px solid var(--light2);display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="font-size:12px;font-weight:600;color:var(--navy)">Screen Protector</div><div style="font-size:10px;color:var(--mid)">Qty: 1 × LKR 1,250</div></div>
+                        <div style="font-size:13px;font-weight:700;color:var(--navy)">LKR 1,250</div>
+                      </div>
+                    </div>
+                    <div style="border-top:1px solid var(--light2);padding-top:9px;display:flex;justify-content:space-between;margin-bottom:9px;">
+                      <span style="font-size:11px;color:var(--mid)">Subtotal</span><span style="font-size:12px;font-weight:600;color:var(--navy)">LKR 10,050</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:9px;">
+                      <span style="font-size:11px;color:var(--mid)">VAT 15%</span><span style="font-size:12px;font-weight:600;color:var(--navy)">LKR 1,508</span>
+                    </div>
+                    <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:9px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;">
+                      <span style="font-size:12px;color:rgba(255,255,255,.8)">Total</span><span style="font-family:var(--fd);font-size:18px;font-weight:700;color:var(--gold3)">LKR 11,558</span>
+                    </div>
+                    <div class="dtags"><span class="dtag gr">Cash</span><span class="dtag am">Card</span><span class="dtag rd">Split Pay</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 3: Sales History & Reports -->
+              <div class="dash-slide" id="slide-2" style="display:none">
+                <div class="dash-card">
+                  <div class="dash-hbar"><span class="dt">Sales History & Reports</span><span class="lpill"><span class="ldot"></span> Live</span></div>
+                  <div class="dash-body">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:11px;">
+                      <div class="kpi-b" style="text-align:center"><div class="kl">Today</div><div class="kv" style="font-size:16px">LKR 142,500</div></div>
+                      <div class="kpi-b" style="text-align:center"><div class="kl">This Week</div><div class="kv" style="font-size:16px">LKR 685k</div></div>
+                      <div class="kpi-b" style="text-align:center"><div class="kl">This Month</div><div class="kv" style="font-size:16px">LKR 2.8M</div></div>
+                    </div>
+                    <div style="font-size:10px;font-weight:700;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;">Recent Transactions</div>
+                    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--off);border-radius:8px;border:1px solid var(--light2)">
+                        <div style="font-size:11px;color:var(--navy);font-weight:600">#TXN-4821</div><div style="font-size:10px;color:var(--mid)">14:32</div><div style="font-size:11px;font-weight:700;color:#22c55e">LKR 35,400</div><span class="dtag gr" style="font-size:9px">Paid</span>
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--off);border-radius:8px;border:1px solid var(--light2)">
+                        <div style="font-size:11px;color:var(--navy);font-weight:600">#TXN-4820</div><div style="font-size:10px;color:var(--mid)">13:58</div><div style="font-size:11px;font-weight:700;color:#22c55e">LKR 14,200</div><span class="dtag gr" style="font-size:9px">Paid</span>
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--off);border-radius:8px;border:1px solid var(--light2)">
+                        <div style="font-size:11px;color:var(--navy);font-weight:600">#TXN-4819</div><div style="font-size:10px;color:var(--mid)">12:10</div><div style="font-size:11px;font-weight:700;color:#ef4444">LKR 8,750</div><span class="dtag rd" style="font-size:9px">Refund</span>
+                      </div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;padding:0 2px">
+                      <span style="font-size:10.5px;color:var(--mid)">Revenue this week</span><span style="font-size:10.5px;font-weight:700;color:var(--gold)">LKR 685,200</span>
+                    </div>
+                    <div class="btr"><div class="bf" style="width:74%"></div></div>
+                    <div class="dtags" style="margin-top:10px"><span class="dtag gr">Excel Export</span><span class="dtag am">Tax Report</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 4: Inventory & Stock -->
+              <div class="dash-slide" id="slide-3" style="display:none">
+                <div class="dash-card">
+                  <div class="dash-hbar"><span class="dt">Inventory & Stock Control</span><span class="lpill"><span class="ldot"></span> Live</span></div>
+                  <div class="dash-body">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px;">
+                      <div class="kpi-b"><div class="kl">Total Products</div><div class="kv">1,248</div><div class="kd up">All categories</div></div>
+                      <div class="kpi-b"><div class="kl">Stock Value (Cost)</div><div class="kv">LKR 4.8M</div><div class="kd" style="color:var(--mid)">WAC method</div></div>
+                      <div class="kpi-b"><div class="kl">Sell Value</div><div class="kv">LKR 8.5M</div><div class="kd up">At retail price</div></div>
+                      <div class="kpi-b"><div class="kl">Low Stock Alerts</div><div class="kv dn">3 Items</div><div class="kd dn">↓ Action needed</div></div>
+                    </div>
+                    <div style="font-size:10px;font-weight:700;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;">Low Stock Items</div>
+                    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa">
+                        <span style="font-size:11px;color:var(--navy);font-weight:600">iPhone 15 Case Black</span><span style="font-size:11px;font-weight:700;color:#ea580c">Qty: 2</span>
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca">
+                        <span style="font-size:11px;color:var(--navy);font-weight:600">USB Hub 7-Port</span><span style="font-size:11px;font-weight:700;color:#dc2626">Qty: 0</span>
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa">
+                        <span style="font-size:11px;color:var(--navy);font-weight:600">Type-C Adapter White</span><span style="font-size:11px;font-weight:700;color:#ea580c">Qty: 1</span>
+                      </div>
+                    </div>
+                    <div class="br"><div class="bt"><span>Stock Health</span><span style="color:#22c55e;font-weight:700">94.2%</span></div><div class="btr"><div class="bf" style="width:94%;background:linear-gradient(90deg,#22c55e,#4ade80)"></div></div></div>
+                    <div class="dtags"><span class="dtag am">Reorder Alert</span><span class="dtag rd">3 Out of Stock</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 5: Gift Cards & Promotions -->
+              <div class="dash-slide" id="slide-4" style="display:none">
+                <div class="dash-card">
+                  <div class="dash-hbar"><span class="dt">Gift Cards & Promotions</span><span class="lpill"><span class="ldot"></span> Live</span></div>
+                  <div class="dash-body">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px;">
+                      <div class="kpi-b"><div class="kl">Active Gift Cards</div><div class="kv">12</div><div class="kd up">LKR 385,000 total</div></div>
+                      <div class="kpi-b"><div class="kl">Redeemed Today</div><div class="kv">LKR 78,500</div><div class="kd up">3 redemptions</div></div>
+                      <div class="kpi-b"><div class="kl">Active Promotions</div><div class="kv">4</div><div class="kd up">Running now</div></div>
+                      <div class="kpi-b"><div class="kl">Promo Savings</div><div class="kv">LKR 298,000</div><div class="kd" style="color:var(--mid)">Given this month</div></div>
+                    </div>
+                    <div style="font-size:10px;font-weight:700;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;">Active Campaigns</div>
+                    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">
+                      <div style="padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="font-size:11px;font-weight:600;color:var(--navy)">Summer Sale 20%</div><div style="font-size:10px;color:var(--mid)">Ends 30 Jun</div></div>
+                        <span class="dtag gr" style="font-size:9px">Live</span>
+                      </div>
+                      <div style="padding:8px 12px;background:#fefce8;border:1px solid #fef08a;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="font-size:11px;font-weight:600;color:var(--navy)">Buy 2 Get 1 Free</div><div style="font-size:10px;color:var(--mid)">Accessories only</div></div>
+                        <span class="dtag am" style="font-size:9px">Live</span>
+                      </div>
+                    </div>
+                    <div class="br"><div class="bt"><span>Gift Card Utilisation</span><span style="color:var(--teal);font-weight:700">73%</span></div><div class="btr"><div class="bf bl" style="width:73%"></div></div></div>
+                    <div class="dtags"><span class="dtag gr">12 Gift Cards</span><span class="dtag am">4 Active Promos</span></div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end slide-track -->
           </div>
-        </div></div>
+
+          <!-- Dot indicators -->
+          <div id="slideDots" style="display:flex;justify-content:center;gap:7px;margin-top:14px;">
+            <button onclick="goSlide(0)" class="sdot sdot-a" style="width:22px;height:7px;border-radius:4px;border:none;background:var(--gold);cursor:pointer;transition:all .3s;padding:0;"></button>
+            <button onclick="goSlide(1)" class="sdot" style="width:7px;height:7px;border-radius:50%;border:none;background:var(--light2);cursor:pointer;transition:all .3s;padding:0;"></button>
+            <button onclick="goSlide(2)" class="sdot" style="width:7px;height:7px;border-radius:50%;border:none;background:var(--light2);cursor:pointer;transition:all .3s;padding:0;"></button>
+            <button onclick="goSlide(3)" class="sdot" style="width:7px;height:7px;border-radius:50%;border:none;background:var(--light2);cursor:pointer;transition:all .3s;padding:0;"></button>
+            <button onclick="goSlide(4)" class="sdot" style="width:7px;height:7px;border-radius:50%;border:none;background:var(--light2);cursor:pointer;transition:all .3s;padding:0;"></button>
+          </div>
+          <!-- Slide label -->
+          <div id="slideLabel" style="text-align:center;margin-top:8px;font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);">Executive Dashboard</div>
+        </div><!-- end dash-scene -->
       </div>
     </div>
   </section>
@@ -685,7 +833,8 @@ footer a{color:var(--gold);text-decoration:none;}
       <p class="cta-sub">Complete POS with live dashboard, inventory, gift cards, promotions, and direct developer support.</p>
       <div class="c-cards">
         <a href="https://wa.me/966540961077" target="_blank" class="c-card wa"><i class="fab fa-whatsapp"></i><div><span class="ccl">WhatsApp</span><span class="ccs">+966 540 961 077</span></div></a>
-        <a href="mailto:ihsan.siddique@outlook.com" class="c-card"><i class="fas fa-envelope"></i><div><span class="ccl">Email</span><span class="ccs">ihsan.siddique@outlook.com</span></div></a>
+        <a href="mailto:isolutions.lk@outlook.com" class="c-card"><i class="fas fa-envelope"></i><div><span class="ccl">Email</span><span class="ccs">isolutions.lk@outlook.com</span></div></a>
+        <a href="mailto:ihsan.siddique@outlook.com" class="c-card"><i class="fas fa-envelope"></i><div><span class="ccl">Email (Developer)</span><span class="ccs">ihsan.siddique@outlook.com</span></div></a>
         <a href="https://www.linkedin.com/in/mohamed-siddique-mohamed-ihsan-bb552a146/" target="_blank" class="c-card"><i class="fab fa-linkedin"></i><div><span class="ccl">LinkedIn</span><span class="ccs">Mohamed Ihsan Siddique</span></div></a>
       </div>
       <button class="btn-primary" onclick="showPage('contact')" style="font-size:16px;padding:18px 40px;box-shadow:0 10px 32px rgba(184,145,42,.4)"><i class="fas fa-paper-plane"></i> Request a Demo &amp; Guide</button>
@@ -697,7 +846,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
   </section>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:ihsan.siddique@outlook.com">Ihsan Siddique</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -944,7 +1093,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div><!-- end mod-detail-grid -->
     </div>
   </div>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1066,7 +1215,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
   </div>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1204,7 +1353,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
   </div>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1255,7 +1404,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
   </div>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise · <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a></p></footer>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1281,9 +1430,13 @@ footer a{color:var(--gold);text-decoration:none;}
               <div style="width:50px;height:50px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:22px;color:#16a34a;flex-shrink:0"><i class="fab fa-whatsapp"></i></div>
               <div><div style="font-weight:700;color:var(--navy);font-size:15px">WhatsApp</div><div style="font-size:13px;color:var(--mid)">+966 540 961 077</div><div style="font-size:12px;color:#16a34a;margin-top:2px">Fastest response</div></div>
             </a>
+            <a href="mailto:isolutions.lk@outlook.com?subject=i Solutions POS Demo Request" style="background:white;border:1.5px solid var(--gold-border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='none'">
+              <div style="width:50px;height:50px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);flex-shrink:0"><i class="fas fa-envelope"></i></div>
+              <div><div style="font-weight:700;color:var(--navy);font-size:15px">Email</div><div style="font-size:13px;color:var(--mid)">isolutions.lk@outlook.com</div><div style="font-size:12px;color:var(--gold);margin-top:2px">Full guide attached on request</div></div>
+            </a>
             <a href="mailto:ihsan.siddique@outlook.com?subject=i Solutions POS Demo Request" style="background:white;border:1.5px solid var(--gold-border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='none'">
               <div style="width:50px;height:50px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);flex-shrink:0"><i class="fas fa-envelope"></i></div>
-              <div><div style="font-weight:700;color:var(--navy);font-size:15px">Email</div><div style="font-size:13px;color:var(--mid)">ihsan.siddique@outlook.com</div><div style="font-size:12px;color:var(--gold);margin-top:2px">Full guide attached on request</div></div>
+              <div><div style="font-weight:700;color:var(--navy);font-size:15px">Email (Developer)</div><div style="font-size:13px;color:var(--mid)">ihsan.siddique@outlook.com</div><div style="font-size:12px;color:var(--gold);margin-top:2px">Direct developer contact</div></div>
             </a>
             <a href="https://www.linkedin.com/in/mohamed-siddique-mohamed-ihsan-bb552a146/" target="_blank" style="background:white;border:1.5px solid rgba(10,102,194,.2);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px var(--shadow);" onmouseover="this.style.borderColor='#0a66c2';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(10,102,194,.2)';this.style.transform='none'">
               <div style="width:50px;height:50px;border-radius:14px;background:rgba(10,102,194,.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:#0a66c2;flex-shrink:0"><i class="fab fa-linkedin"></i></div>
@@ -1312,7 +1465,7 @@ footer a{color:var(--gold);text-decoration:none;}
       </div>
     </div>
   </div>
-  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:ihsan.siddique@outlook.com">Ihsan Siddique</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
+  <footer><p>© 2025 i Solutions — Retail Technology · POS System v4.3 Enterprise</p><p style="margin-top:6px">Developed &amp; maintained by <a href="mailto:isolutions.lk@outlook.com">isolutions.lk@outlook.com</a> · <a href="mailto:ihsan.siddique@outlook.com">ihsan.siddique@outlook.com</a> · <a href="https://wa.me/966540961077">+966 540 961 077</a></p></footer>
 </div>
 
 <script>
@@ -1402,6 +1555,53 @@ if(dw && dw.parentElement) {
     dw.style.transform = 'rotateY(-8deg) rotateX(4deg)';
   });
 }
+
+// ── DASHBOARD SLIDESHOW ──
+const slideLabels = [
+  'Executive Dashboard',
+  'Point of Sale · Billing',
+  'Sales History & Reports',
+  'Inventory & Stock Control',
+  'Gift Cards & Promotions'
+];
+let currentSlide = 0;
+let slideTimer = null;
+
+function goSlide(n) {
+  // hide current
+  document.getElementById('slide-' + currentSlide).style.display = 'none';
+  // update dots
+  const dots = document.querySelectorAll('.sdot');
+  dots[currentSlide].style.width = '7px';
+  dots[currentSlide].style.borderRadius = '50%';
+  dots[currentSlide].style.background = 'var(--light2)';
+  // show new
+  currentSlide = n;
+  document.getElementById('slide-' + currentSlide).style.display = 'block';
+  dots[currentSlide].style.width = '22px';
+  dots[currentSlide].style.borderRadius = '4px';
+  dots[currentSlide].style.background = 'var(--gold)';
+  document.getElementById('slideLabel').textContent = slideLabels[currentSlide];
+}
+
+function nextSlide() {
+  goSlide((currentSlide + 1) % 5);
+}
+
+function startSlideTimer() {
+  if(slideTimer) clearInterval(slideTimer);
+  slideTimer = setInterval(nextSlide, 3000);
+}
+
+// Pause on hover, resume on leave
+const dashScene = document.querySelector('.dash-scene');
+if(dashScene) {
+  dashScene.addEventListener('mouseenter', () => { if(slideTimer) clearInterval(slideTimer); });
+  dashScene.addEventListener('mouseleave', () => { startSlideTimer(); });
+}
+
+// Start auto-play
+startSlideTimer();
 </script>
 </body>
 </html>
